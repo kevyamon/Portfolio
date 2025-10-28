@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import './App.css';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import ScrollToTopButton from './components/ScrollToTopButton';
+import PageTransition from './components/PageTransition';
 
 // Pages
 import Home from './pages/Home';
@@ -25,25 +26,43 @@ function App() {
       <Sidebar isOpen={isSidebarOpen} onClose={closeSidebar} />
 
       <AnimatePresence mode="wait">
-        <motion.div
-          key={location.pathname}
-          initial={{ x: '100%' }}
-          animate={{ x: 0 }}
-          exit={{ x: '-100%' }}
-          transition={{ duration: 0.5, ease: 'easeInOut' }}
-          style={{ position: 'relative', width: '100%' }}
-        >
-          <Routes location={location}>
-            <Route path="/" element={<Home />} />
-            <Route path="/parcours" element={<Parcours />} />
-            <Route path="/travaux" element={<Travaux />} />
-            <Route path="/contact" element={<Contact />} />
-          </Routes>
-        </motion.div>
+        <Routes location={location} key={location.pathname}>
+          <Route 
+            path="/" 
+            element={
+              <PageTransition>
+                <Home />
+              </PageTransition>
+            } 
+          />
+          <Route 
+            path="/parcours" 
+            element={
+              <PageTransition>
+                <Parcours />
+              </PageTransition>
+            } 
+          />
+          <Route 
+            path="/travaux" 
+            element={
+              <PageTransition>
+                <Travaux />
+              </PageTransition>
+            } 
+          />
+          <Route 
+            path="/contact" 
+            element={
+              <PageTransition>
+                <Contact />
+              </PageTransition>
+            } 
+          />
+        </Routes>
       </AnimatePresence>
 
       <ScrollToTopButton />
-      {/* SUPPRIMÉ : <MenuHint /> */}
     </div>
   );
 }
