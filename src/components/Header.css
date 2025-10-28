@@ -1,0 +1,27 @@
+.header {
+  position: fixed; /* Fixé en haut de l'écran */
+  top: 0;
+  right: 0;
+  width: 100%; /* Largeur pleine pour aligner à droite */
+  display: flex;
+  justify-content: flex-end; /* Aligne le hamburger à droite */
+  padding: 20px; /* Espacement autour */
+  z-index: 1000; /* Au-dessus des autres éléments */
+}
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px; /* Largeur de l'icône */
+  height: 24px; /* Hauteur de l'icône */
+  cursor: pointer; /* Indique qu'il est cliquable */
+}
+
+.bar {
+  width: 100%;
+  height: 4px; /* Épaisseur des barres */
+  background-color: #ffffff; /* Blanc pour visibilité sur fond sombre */
+  border-radius: 2px; /* Coins arrondis subtils */
+  transition: all 0.3s ease; /* Animation subtile pour futur hover ou open */
+}

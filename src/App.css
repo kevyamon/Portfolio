@@ -1,2 +1,10 @@
-main {
+.app-container {
+  min-height: 100vh; /* Assure que le conteneur couvre toute la hauteur de la vue */
+  background-image: url('./assets/background.png'); /* Chemin relatif vers l'image */
+  background-size: cover; /* Couvre tout l'écran */
+  background-position: center; /* Centre l'image */
+  background-attachment: fixed; /* Reste fixe lors du scroll */
+  background-repeat: no-repeat; /* Pas de répétition */
+  color: #ffffff; /* Texte blanc pour un thème sombre */
+  font-family: 'Arial', sans-serif; /* Police basique, modifiable plus tard */
 }
