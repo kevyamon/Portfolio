@@ -1,77 +1,93 @@
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: -300px; /* Hors écran par défaut */
-  width: 280px;
-  height: 100vh;
-  background: rgba(20, 20, 30, 0.98);
-  backdrop-filter: blur(10px);
-  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.5);
-  transition: left 0.3s ease;
-  z-index: 2000;
-  padding: 80px 20px 20px;
-  overflow-y: auto;
-}
+/* ====================================
+   NOUVELLE SIDEBAR "WAVE" (VAGUE)
+   ==================================== */
 
-.sidebar.open {
-  left: 0; /* Glisse vers la droite */
-}
-
-.sidebar-nav ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.sidebar-nav li {
-  margin-bottom: 20px;
-}
-
-.sidebar-nav a {
-  color: #e0e0e0;
-  text-decoration: none;
-  font-size: 1.2rem;
-  font-weight: 500;
-  display: block;
-  padding: 12px 16px;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  position: relative;
-}
-
-.sidebar-nav a:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
-  padding-left: 24px;
-}
-
-.sidebar-nav a::before {
-  content: '→';
-  position: absolute;
-  left: 16px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.sidebar-nav a:hover::before {
-  opacity: 1;
-}
-
-/* Overlay */
-.sidebar-overlay {
+/* L'overlay pleine page */
+.sidebar-wave {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-  z-index: 1500;
+  height: 100vh;
+  /* Fond noir comme dans la vidéo */
+  background: #111111;
+  z-index: 2000;
+  
+  /* Centrer la navigation */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.sidebar-overlay.open {
-  opacity: 1;
-  visibility: visible;
+/* Le bouton "X" de fermeture (style de la vidéo) */
+.sidebar-close-x {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 30px;
+  height: 24px;
+  cursor: pointer;
+  z-index: 2100;
 }
+
+.sidebar-close-x .bar {
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 100%;
+  height: 4px;
+  background-color: #ffffff;
+  border-radius: 2px;
+}
+
+.sidebar-close-x .bar:nth-child(1) {
+  transform: rotate(45deg);
+}
+
+.sidebar-close-x .bar:nth-child(2) {
+  transform: rotate(-45deg);
+}
+
+
+/* La nouvelle navigation (style de la vidéo) */
+.sidebar-nav-wave {
+  width: 100%;
+}
+
+.sidebar-nav-wave ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+.sidebar-nav-wave li {
+  margin-bottom: 30px;
+}
+
+.sidebar-nav-wave a {
+  color: #e0e0e0;
+  text-decoration: none;
+  /* Police large avec sérif (comme la vidéo) */
+  font-size: 2.5rem; 
+  font-family: serif;
+  font-weight: 500;
+  display: inline-block;
+  padding: 10px;
+  transition: color 0.3s ease;
+}
+
+.sidebar-nav-wave a:hover {
+  color: #4ade80; /* Surlignage vert au survol */
+}
+
+
+/* ====================================
+   ANCIENNE SIDEBAR (STYLES SUPPRIMÉS)
+   ==================================== */
+
+/* Tous les anciens styles de .sidebar, .sidebar.open, 
+  .sidebar-nav, et .sidebar-overlay ont été supprimés 
+  car ils ne correspondent plus à la nouvelle vision.
+*/

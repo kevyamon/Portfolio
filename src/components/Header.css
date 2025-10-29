@@ -16,6 +16,7 @@
   width: 30px; /* Largeur de l'icône */
   height: 24px; /* Hauteur de l'icône */
   cursor: pointer; /* Indique qu'il est cliquable */
+  z-index: 1000; /* Reste au-dessus du contenu */
 }
 
 .bar {
@@ -23,5 +24,12 @@
   height: 4px; /* Épaisseur des barres */
   background-color: #ffffff; /* Blanc pour visibilité sur fond sombre */
   border-radius: 2px; /* Coins arrondis subtils */
-  transition: all 0.3s ease; /* Animation subtile pour futur hover ou open */
+  transition: all 0.3s ease; /* Animation subtile */
+  transform-origin: center;
+}
+
+/* NOUVEAU : Cacher le hamburger quand la sidebar est ouverte */
+/* Le "X" sera géré par la sidebar elle-même */
+.hamburger.open .bar {
+  opacity: 0;
 }

@@ -6,6 +6,7 @@ import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import ScrollToTopButton from './components/ScrollToTopButton';
 import PageTransition from './components/PageTransition';
+import PageWipe from './components/PageWipe';
 
 // Pages
 import Home from './pages/Home';
@@ -22,10 +23,18 @@ function App() {
 
   return (
     <div className="app-container">
-      <Header onToggleSidebar={toggleSidebar} />
-      <Sidebar isOpen={isSidebarOpen} onClose={closeSidebar} />
+      {/* J'informe le Header de l'état "ouvert" pour qu'il puisse se cacher */}
+      <Header onToggleSidebar={toggleSidebar} isOpen={isSidebarOpen} />
+      
+      {/* La Sidebar est maintenant gérée par AnimatePresence ici 
+          pour qu'elle puisse s'animer à l'entrée et à la sortie.
+      */}
+      <AnimatePresence>
+        {isSidebarOpen && <Sidebar onClose={closeSidebar} />}
+      </AnimatePresence>
 
-      <AnimatePresence mode="wait">
+      <AnimatePresence>
+        <PageWipe key={location.pathname + '-wipe'} />
         <Routes location={location} key={location.pathname}>
           <Route 
             path="/" 

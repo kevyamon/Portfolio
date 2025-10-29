@@ -367,22 +367,11 @@
   .card-icon { width: 50px; height: 50px; }
 }             
                                     /* ====================================
-   PAGE TRANSITION - WIPE VERT
+   PAGE TRANSITION - (STYLES SUPPRIMÉS)
    ==================================== */
-.page-wipe {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, #22c55e, #16a34a, #4ade80);
-  z-index: 9999;
-  pointer-events: none;
-}
-
-.page-wipe.reverse {
-  background: linear-gradient(135deg, #4ade80, #16a34a, #22c55e);
-}
+/* J'ai supprimé les styles .page-wipe et .page-wipe.reverse d'ici.
+  Ils sont maintenant dans 'src/components/PageWipe.css'.
+*/
                                                                       /* ====================================
    PARCOURS PAGE - COMPOSITION
    ==================================== */

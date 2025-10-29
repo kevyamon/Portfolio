@@ -1,9 +1,14 @@
 import './Header.css';
 
-function Header({ onToggleSidebar }) {
+// 1. Je récupère la nouvelle propriété 'isOpen'
+function Header({ onToggleSidebar, isOpen }) {
   return (
     <header className="header">
-      <div className="hamburger" onClick={onToggleSidebar}>
+      {/* 2. J'ajoute la classe 'open' si la sidebar est ouverte */}
+      <div 
+        className={`hamburger ${isOpen ? 'open' : ''}`} 
+        onClick={onToggleSidebar}
+      >
         <span className="bar"></span>
         <span className="bar"></span>
         <span className="bar"></span>
