@@ -383,3 +383,18 @@
 .page-wipe.reverse {
   background: linear-gradient(135deg, #4ade80, #16a34a, #22c55e);
 }
+                                                                      /* ====================================
+   PARCOURS PAGE - COMPOSITION
+   ==================================== */
+.parcours-page {
+  background: #0f0f1a;
+  padding-bottom: 120px;
+}
+
+.parcours-page .section-title {
+  color: #ffffff;
+}
+
+.parcours-page .section-title::after {
+  background: #4ade80;
+}         
