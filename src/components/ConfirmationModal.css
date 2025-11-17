@@ -1,0 +1,72 @@
+/* src/components/ConfirmationModal.css */
+.confirm-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100dvh;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  z-index: 10000; /* Au-dessus de tout */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.confirm-modal {
+  width: 100%;
+  max-width: 450px;
+  background: #1a1a2e;
+  border-radius: 12px;
+  padding: 25px;
+  border: 1px solid rgba(255, 82, 82, 0.3);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.confirm-modal h3 {
+  font-size: 1.4rem;
+  color: #ff7b7b;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.confirm-modal p {
+  font-size: 1rem;
+  color: #cccccc;
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+.confirm-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+}
+
+.confirm-buttons button {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.btn-cancel {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+.btn-cancel:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.btn-confirm {
+  background: #d92626; /* Rouge Danger */
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(255, 82, 82, 0.2);
+}
+.btn-confirm:hover {
+  background: #b91c1c;
+}

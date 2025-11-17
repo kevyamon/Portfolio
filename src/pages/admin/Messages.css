@@ -1,0 +1,198 @@
+/* src/pages/admin/Messages.css */
+/* Style pour la page de gestion des messages */
+
+.messages-layout {
+  display: flex;
+  height: 100%; /* Prend toute la hauteur du 'admin-content' */
+  width: 100%;
+  background: #11111a;
+  border-radius: 12px;
+  overflow: hidden; /* Pour les coins arrondis */
+  border: 1px solid rgba(74, 222, 128, 0.1);
+}
+
+/* --- PANNEAU DE GAUCHE (LISTE) --- */
+.message-list-sidebar {
+  width: 350px;
+  flex-shrink: 0;
+  border-right: 1px solid rgba(74, 222, 128, 0.1);
+  display: flex;
+  flex-direction: column;
+  background: #0f0f1a;
+}
+
+.message-list-header {
+  padding: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.message-list-header h2 {
+  margin: 0;
+  font-size: 1.3rem;
+  color: #fff;
+}
+
+.message-list-container {
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.empty-list {
+  text-align: center;
+  margin-top: 30px;
+  color: #888;
+}
+
+.message-item {
+  padding: 15px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.message-item:hover {
+  background: #1a1a2e;
+}
+
+.message-item.active {
+  background: #1a1a2e;
+  border-left: 3px solid #4ade80;
+  padding-left: 17px;
+}
+
+.message-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.message-item-name {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #e5e5e5;
+}
+
+.message-item-date {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.message-item-preview {
+  font-size: 0.9rem;
+  color: #aaa;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Style "Non Lu" */
+.message-item.unread .message-item-name {
+  font-weight: 700;
+  color: #4ade80;
+}
+.message-item.unread .message-item-preview {
+  color: #e5e5e5;
+}
+
+
+/* --- PANNEAU DE DROITE (LECTURE) --- */
+.message-reader {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.message-reader-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #888;
+}
+.message-reader-empty svg {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 20px;
+  opacity: 0.5;
+}
+
+.message-reader-toolbar {
+  display: flex;
+  gap: 10px;
+  padding: 15px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: #1a1a2e;
+}
+
+.message-reader-toolbar button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+.message-reader-toolbar button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.message-reader-toolbar button.action-btn {
+  padding: 8px; /* Boutons icône seule */
+}
+.message-reader-toolbar button.danger:hover {
+  background: rgba(255, 82, 82, 0.2);
+  color: #ff7b7b;
+}
+
+.message-reader-content {
+  padding: 30px;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.message-reader-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+.message-reader-header h3 {
+  margin: 0 0 5px 0;
+  font-size: 1.5rem;
+  color: #fff;
+}
+.message-reader-header span {
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+.message-reader-body {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #e5e5e5;
+  white-space: pre-wrap; /* Respecte les sauts de ligne du message */
+}
+
+/* Responsive pour la boîte de réception */
+@media (max-width: 900px) {
+  .messages-layout {
+    flex-direction: column;
+  }
+  .message-list-sidebar {
+    width: 100%;
+    max-height: 40vh; /* Limite la hauteur de la liste */
+    border-right: none;
+    border-bottom: 1px solid rgba(74, 222, 128, 0.1);
+  }
+  .message-reader {
+    flex-grow: 1;
+  }
+}

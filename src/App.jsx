@@ -12,10 +12,14 @@ import { Toaster } from 'react-hot-toast';
 import { useLongPress } from './hooks/useLongPress';
 import LoginModal from './components/LoginModal';
 
-// --- Importer les nouveaux composants Admin ---
-import ProtectedRoute from './components/ProtectedRoute'; // Le "garde du corps"
-import AdminLayout from './components/AdminLayout'; // Le "squelette" du dashboard
-import DashboardHome from './pages/admin/DashboardHome'; // L'accueil du dashboard
+// --- Importer les composants Admin ---
+import ProtectedRoute from './components/ProtectedRoute'; 
+import AdminLayout from './components/AdminLayout'; 
+import DashboardHome from './pages/admin/DashboardHome'; 
+// --- IMPORTER LES NOUVELLES PAGES ADMIN ---
+import ManageParcours from './pages/admin/ManageParcours';
+import ManageTravaux from './pages/admin/ManageTravaux';
+import ManageMessages from './pages/admin/ManageMessages';
 
 // Pages Publiques
 import Home from './pages/Home';
@@ -43,33 +47,29 @@ function App() {
         onClose={() => setIsLoginModalOpen(false)} 
       />
 
-      {/* Le Header et la Sidebar ne doivent s'afficher QUE sur le site public,
-        PAS dans le dashboard. Nous allons gérer ça plus tard.
-        Pour l'instant, on se concentre sur les routes.
-      */}
+      {/* Note: Nous allons corriger l'affichage conditionnel du Header/Sidebar plus tard */}
       <Header onToggleSidebar={toggleSidebar} isOpen={isSidebarOpen} />
       <AnimatePresence>
         {isSidebarOpen && <Sidebar onClose={closeSidebar} />}
       </AnimatePresence>
       <ScrollToTopButton longPressEvents={longPressEvents} />
 
-      {/* On retire AnimatePresence d'ici pour l'appliquer 
-        séparément au site public et au dashboard.
-      */}
+      
       <Routes location={location} key={location.pathname}>
         
         {/* --- Routes du Dashboard Admin --- */}
-        {/* 'element' est notre "garde du corps" */}
         <Route element={<ProtectedRoute />}>
-          {/* Si le garde dit OK, il affiche le "squelette" */}
           <Route path="/admin" element={<AdminLayout />}>
-            {/* Et le "squelette" affiche ces pages à l'intérieur : */}
+            {/* CORRECTION : Déclaration des sous-routes */}
             <Route index element={<DashboardHome />} />
-            {/* (Nous ajouterons les autres pages admin ici plus tard) */}
+            <Route path="parcours" element={<ManageParcours />} />
+            <Route path="travaux" element={<ManageTravaux />} />
+            <Route path="messages" element={<ManageMessages />} />
           </Route>
         </Route>
 
         {/* --- Routes Publiques (Site Principal) --- */}
+        {/* Note: Nous allons réintégrer AnimatePresence pour le site public bientôt */}
         <Route 
           path="/" 
           element={
@@ -102,11 +102,6 @@ function App() {
             </PageTransition>
           } 
         />
-        
-        {/* Note: Le PageWipe ne fonctionnera plus car nous avons retiré 
-            AnimatePresence. Nous corrigerons cela plus tard.
-            L'objectif principal est de créer la route admin.
-        */}
 
       </Routes>
     </div>

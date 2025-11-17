@@ -1,0 +1,129 @@
+/* src/pages/admin/Parcours.css */
+/* Styles spécifiques pour la page de gestion du Parcours */
+
+.parcours-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.parcours-list-header h2 {
+  font-size: 1.8rem;
+  color: #fff;
+  margin: 0;
+}
+
+/* Style de la liste des items à glisser-déposer */
+.parcours-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: #1a1a2e;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 15px 20px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  transition: box-shadow 0.2s ease;
+}
+
+/* Style quand on "attrape" un item */
+.parcours-item.dragging {
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  background: #2a2a4e;
+}
+
+.drag-handle {
+  color: #888;
+  cursor: grab;
+  flex-shrink: 0;
+}
+.parcours-item.dragging .drag-handle {
+  cursor: grabbing;
+}
+
+.item-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: rgba(74, 222, 128, 0.1);
+}
+.item-icon img {
+  width: 20px;
+  height: 20px;
+  filter: brightness(0) invert(1);
+}
+
+.item-details {
+  flex-grow: 1;
+}
+.item-details h4 {
+  margin: 0 0 3px 0;
+  font-size: 1.1rem;
+  color: #fff;
+}
+.item-details p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+.item-actions {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.item-actions button {
+  background: none;
+  border: none;
+  color: #aaa;
+  cursor: pointer;
+  padding: 5px;
+  transition: color 0.2s ease;
+}
+.item-actions button.edit:hover { color: #60a5fa; }
+.item-actions button.delete:hover { color: #ff7b7b; }
+
+/* Style du Sélecteur d'Icônes */
+.icon-selector-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #cccccc;
+  margin-bottom: 8px;
+  display: block;
+}
+.icon-selector {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+.icon-option {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.icon-option img {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) invert(1);
+}
+.icon-option:hover {
+  border-color: #aaa;
+}
+.icon-option.selected {
+  border-color: #4ade80;
+  background: rgba(74, 222, 128, 0.1);
+  transform: scale(1.1);
+}
