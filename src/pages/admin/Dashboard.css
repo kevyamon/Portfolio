@@ -1,0 +1,145 @@
+/* src/pages/admin/Dashboard.css */
+
+.dashboard-home p {
+  font-size: 1.1rem;
+  color: #cccccc;
+  margin-bottom: 30px;
+}
+
+/* Grille pour les cartes statistiques */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+.stat-card {
+  background: #1a1a2e;
+  border-radius: 12px;
+  padding: 25px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.stat-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.stat-card.messages .stat-icon { background: rgba(59, 130, 246, 0.2); color: #60a5fa; }
+.stat-card.projects .stat-icon { background: rgba(234, 179, 8, 0.2); color: #facc15; }
+.stat-card.timeline .stat-icon { background: rgba(139, 92, 246, 0.2); color: #a78bfa; }
+
+.stat-info {
+  display: flex;
+  flex-direction: column;
+}
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+}
+.stat-label {
+  font-size: 1rem;
+  color: #aaaaaa;
+}
+
+/* Lien "Voir tout" en bas de la carte */
+.stat-link {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding: 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+  opacity: 0;
+  transform: translateY(100%);
+  transition: all 0.3s ease;
+}
+.stat-card:hover .stat-link {
+  opacity: 1;
+  transform: translateY(0);
+}
+.stat-card.messages .stat-link { background: #3b82f6; }
+.stat-card.projects .stat-link { background: #eab308; }
+.stat-card.timeline .stat-link { background: #8b5cf6; }
+
+/* Section des messages récents */
+.recent-messages h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 10px;
+}
+
+.message-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.message-list li {
+  background: #1a1a2e;
+  border-radius: 8px;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: transform 0.3s ease;
+}
+.message-list li:hover {
+  transform: scale(1.02);
+}
+
+.message-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.message-header strong {
+  font-size: 1.1rem;
+  color: #e5e5e5;
+}
+.message-date {
+  font-size: 0.9rem;
+  color: #888;
+}
+
+.message-preview {
+  font-size: 1rem;
+  color: #bbb;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Style pour les messages non lus */
+.message-list li.unread .message-header strong {
+  color: #4ade80;
+  font-weight: 700;
+}
+.message-list li.unread .message-preview {
+  color: #fff;
+}

@@ -1,0 +1,168 @@
+/* src/components/LoginModal.css */
+
+.login-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100dvh; 
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  z-index: 9990;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px; 
+}
+
+.login-modal {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  background: #1a1a2e;
+  border-radius: 16px;
+  
+  /* CORRECTION DÉBORDEMENT : Réduction du padding */
+  padding: 25px; 
+  
+  z-index: 9991;
+  border: 1px solid rgba(74, 222, 128, 0.2);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  max-height: 90dvh;
+  overflow-y: auto;
+}
+
+/* --- AJOUT : Style pour le bouton "X" (croix) --- */
+.login-modal-close {
+  position: absolute;
+  top: 15px; /* Ajusté pour le nouveau padding */
+  right: 15px; /* Ajusté pour le nouveau padding */
+  width: 30px;
+  height: 24px;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+.login-modal-close:hover {
+  opacity: 1;
+}
+.login-modal-close .bar {
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 100%;
+  height: 3px; /* Un peu plus fin */
+  background-color: #ffffff;
+  border-radius: 2px;
+}
+.login-modal-close .bar:nth-child(1) {
+  transform: rotate(45deg);
+}
+.login-modal-close .bar:nth-child(2) {
+  transform: rotate(-45deg);
+}
+/* ------------------------------------------- */
+
+
+.login-modal h3 {
+  font-size: 1.5rem;
+  color: #ffffff;
+  margin-top: 0;
+  margin-bottom: 10px;
+  text-align: center;
+  /* Laisser de la place pour le "X" */
+  padding-right: 20px; 
+}
+
+.login-modal p {
+  font-size: 1rem;
+  color: #cccccc;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.login-modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* --- AJOUT : Wrapper pour l'input et l'icône --- */
+.password-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.login-modal input[type="password"],
+.login-modal input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.2);
+  color: #ffffff;
+  font-size: 1rem;
+  text-align: center;
+  letter-spacing: 2px;
+  /* Laisser de la place pour l'icône oeil */
+  padding-right: 45px !important;
+}
+
+.login-modal input[type="password"]:focus,
+.login-modal input[type="text"]:focus {
+  outline: none;
+  border-color: #4ade80;
+}
+
+/* --- AJOUT : Style pour l'icône "oeil" --- */
+.password-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+.password-icon:hover {
+  color: #fff;
+}
+/* ------------------------------------------- */
+
+.login-modal button {
+  background: linear-gradient(135deg, #4ade80, #22c55e);
+  color: #0f172a;
+  font-weight: 600;
+  padding: 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 1rem;
+  box-shadow: 0 6px 16px rgba(74, 222, 128, 0.3);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+}
+
+.login-modal button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(74, 222, 128, 0.4);
+}
+
+.login-modal button:disabled {
+  background: #555;
+  color: #999;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* CORRECTION DÉBORDEMENT : Média query pour très petits écrans */
+@media (max-width: 360px) {
+  .login-modal {
+    padding: 20px 15px; /* Encore moins de padding */
+  }
+  .login-modal h3 {
+    font-size: 1.3rem;
+  }
+}

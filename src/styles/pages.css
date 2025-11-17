@@ -1,15 +1,17 @@
+/* src/styles/pages.css */
+
 /* ================================
    STYLES GÉNÉRAUX POUR TOUTES LES PAGES
    ================================ */
 
 .page-container {
-  min-height: 100vh;
+  min-height: 100dvh; /* Hauteur dynamique (mieux pour mobile) */
   padding: 100px 5% 120px;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
-  overflow: hidden;
+  /* overflow: hidden; <-- Supprimé pour éviter de couper le contenu */
 }
 
 /* Titre de section */
@@ -17,7 +19,7 @@
   font-size: 2.4rem;
   font-weight: 700;
   color: #ffffff;
-  margin-bottom: 60px;
+  margin-bottom: 60px; /* Augmenté pour l'espacement */
   text-align: center;
   position: relative;
 }
@@ -52,19 +54,17 @@
 }
 
 /* ================================
-   PAGE ACCUEIL (COMPLÈTEMENT REVUE)
+   PAGE ACCUEIL (CORRIGÉE)
    ================================ */
 .home-page {
-  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  /* CORRECTION : Centrer verticalement le contenu */
-  justify-content: center; 
+  /* CORRECTION : Centrage vertical du contenu */
+  justify-content: center;
   align-items: center;
-  padding: 60px 5%; /* Espacement plus équilibré */
+  padding: 100px 5% 60px;
   text-align: center;
-  /* Assure que le contenu ne dépasse pas, surtout sur mobile */
-  overflow: hidden; 
 }
 
 .home-content {
@@ -81,13 +81,11 @@
   animation: fadeInDown 1s ease-out;
 }
 
-/* Le "jolie cercle au centre" */
 .profile-img {
-  width: 220px; /* Augmenté pour plus d'impact */
+  width: 220px;
   height: 220px;
-  object-fit: cover; /* Assure que l'image remplit le cercle */
-  border-radius: 50%; /* Le cercle parfait */
-  /* Bordure néon avec animation */
+  object-fit: cover;
+  border-radius: 50%;
   border: 5px solid rgba(74, 222, 128, 0.5);
   box-shadow: 0 0 30px rgba(74, 222, 128, 0.4), 0 15px 30px rgba(0, 0, 0, 0.4);
   transition: transform 0.5s ease;
@@ -95,34 +93,17 @@
 }
 
 .profile-img:hover {
-  transform: scale(1.05); /* Effet de zoom subtil */
-  animation-play-state: paused; /* Arrête l'impulsion au survol */
-}
-
-/* Animation d'impulsion pour la bordure */
-@keyframes pulse-border {
-  0% {
-    box-shadow: 0 0 30px rgba(74, 222, 128, 0.3), 0 15px 30px rgba(0, 0, 0, 0.4);
-    border-color: rgba(74, 222, 128, 0.3);
-  }
-  50% {
-    box-shadow: 0 0 45px rgba(74, 222, 128, 0.6), 0 15px 30px rgba(0, 0, 0, 0.4);
-    border-color: rgba(74, 222, 128, 0.6);
-  }
-  100% {
-    box-shadow: 0 0 30px rgba(74, 222, 128, 0.3), 0 15px 30px rgba(0, 0, 0, 0.4);
-    border-color: rgba(74, 222, 128, 0.3);
-  }
+  transform: scale(1.05);
+  animation-play-state: paused;
 }
 
 .home-text {
   animation: fadeInUp 1s ease-out 0.3s forwards;
-  opacity: 0;
+  opacity: 0; /* L'animation va changer ça */
 }
 
-/* Remplir la page "vide" */
 .home-title {
-  font-size: 2.8rem; /* Augmenté */
+  font-size: 2.8rem;
   font-weight: 700;
   line-height: 1.3;
   margin: 0 0 16px 0;
@@ -142,14 +123,14 @@
 
 .highlight {
   color: #4ade80;
-  font-size: 3.2rem; /* Augmenté */
+  font-size: 3.2rem;
   font-weight: 800;
 }
 
 .home-subtitle {
-  font-size: 1.2rem; /* Augmenté */
+  font-size: 1.2rem;
   color: #cccccc;
-  margin-bottom: 32px; /* Plus d'espace */
+  margin-bottom: 32px;
   line-height: 1.7;
   max-width: 600px;
   animation: fadeIn 1.5s ease-out 1s forwards;
@@ -161,10 +142,10 @@
   background: linear-gradient(135deg, #4ade80, #22c55e);
   color: #0f172a;
   font-weight: 600;
-  padding: 14px 32px; /* Augmenté */
+  padding: 14px 32px;
   border-radius: 50px;
   text-decoration: none;
-  font-size: 1.1rem; /* Augmenté */
+  font-size: 1.1rem;
   box-shadow: 0 6px 16px rgba(74, 222, 128, 0.3);
   transition: all 0.3s ease;
   cursor: pointer;
@@ -173,33 +154,35 @@
 }
 
 .cta-button:hover {
-  transform: translateY(-3px) scale(1.05); /* Effet de survol amélioré */
+  transform: translateY(-3px) scale(1.05);
   box-shadow: 0 10px 20px rgba(74, 222, 128, 0.4);
 }
 
 /* ================================
-   PAGE PARCOURS (STYLES INCHANGÉS)
+   PAGE PARCOURS
    ================================ */
-
 .parcours-page {
   background: #0f0f1a;
   padding-bottom: 120px;
 }
 
-/* ... (tous les styles .timeline-vertical, .step-card, etc. restent ici) ... */
 .timeline-vertical {
   position: relative;
   max-width: 800px;
   margin: 0 auto;
   padding: 20px 0;
 }
+
 .timeline-step {
   display: flex;
   gap: 30px;
   position: relative;
   padding-bottom: 60px;
 }
-.timeline-step:last-child { padding-bottom: 0; }
+.timeline-step:last-child {
+  padding-bottom: 0;
+}
+
 .step-marker {
   display: flex;
   flex-direction: column;
@@ -207,6 +190,7 @@
   min-width: 60px;
   position: relative;
 }
+
 .step-icon {
   width: 60px;
   height: 60px;
@@ -219,24 +203,31 @@
   z-index: 2;
   border: 4px solid #0f0f1a;
 }
+
 .step-icon img {
   width: 28px;
   height: 28px;
   filter: brightness(0) invert(1);
 }
+
 .step-line {
   position: absolute;
   top: 60px;
   bottom: -10px;
   width: 2px;
-  border-left: 2px dashed rgba(74, 222, 128, 0.5); 
+  border-left: 2px dashed rgba(74, 222, 128, 0.5);
   z-index: 1;
 }
-.timeline-step:last-child .step-line { display: none; }
+
+.timeline-step:last-child .step-line {
+  display: none;
+}
+
 .step-content {
   flex: 1;
   padding-top: 10px;
 }
+
 .step-card {
   background: #1a1a2e;
   border: 1px solid rgba(74, 222, 128, 0.1);
@@ -245,11 +236,13 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease, border-color 0.3s ease;
 }
+
 .step-card:hover {
   transform: translateY(-5px);
   border-color: rgba(74, 222, 128, 0.5);
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
 }
+
 .step-year {
   display: inline-block;
   font-size: 0.9rem;
@@ -262,12 +255,14 @@
   padding: 4px 12px;
   border-radius: 20px;
 }
+
 .step-card h3 {
   font-size: 1.5rem;
   color: #ffffff;
   margin: 0 0 10px 0;
   font-weight: 600;
 }
+
 .step-location {
   font-size: 1rem;
   color: #a0a0b0;
@@ -275,6 +270,7 @@
   margin-bottom: 15px;
   display: block;
 }
+
 .step-desc {
   font-size: 1rem;
   color: #d1d5db;
@@ -282,11 +278,48 @@
   margin: 0;
 }
 
+/* ================================
+   ANIMATIONS (CORRIGÉES)
+   ================================ */
+@keyframes slideUp { 
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  } 
+}
+
+@keyframes fadeIn { 
+  to { 
+    opacity: 1; 
+  } 
+}
+
+@keyframes fadeInUp { 
+  from { 
+    opacity: 0; 
+    transform: translateY(30px); 
+  } 
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  } 
+}
+
+/* CORRECTION : L'animation était cassée ici */
+@keyframes fadeInDown { 
+  from { 
+    opacity: 0; 
+    transform: translateY(-30px); 
+  } 
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  } 
+}
 
 /* ================================
    RÈGLES RESPONSIVES (MOBILES)
    ================================ */
-
 @media (max-width: 768px) {
   /* ... (responsive général) ... */
   .step-marker { min-width: 40px; }
@@ -296,33 +329,33 @@
   .step-card h3 { font-size: 1.2rem; }
   .timeline-step { gap: 15px; }
 
-  /* Responsive Spécifique ACCUEIL (votre demande 90% mobile) */
+  /* Responsive Spécifique ACCUEIL */
   .home-page {
-    /* Centre le contenu avec une marge de sécurité pour le header */
     padding: 80px 5% 60px;
+    justify-content: center; /* Assure le centrage sur mobile */
   }
   
   .profile-img {
-    width: 160px; /* Cercle plus petit sur mobile */
+    width: 160px;
     height: 160px;
     border-width: 4px;
   }
 
   .home-title {
-    font-size: 2rem; /* Police principale réduite */
+    font-size: 2rem;
   }
 
   .highlight {
-    font-size: 2.3rem; /* Police "Kevy" réduite */
+    font-size: 2.3rem;
   }
 
   .home-subtitle {
-    font-size: 1rem; /* Sous-titre réduit */
+    font-size: 1rem;
     line-height: 1.6;
   }
 
   .cta-button {
-    padding: 12px 28px; /* Bouton réduit */
+    padding: 12px 28px;
     font-size: 1rem;
   }
 }
