@@ -1,30 +1,43 @@
 /* ====================================
-   NOUVELLE SIDEBAR "WAVE" (VAGUE)
+   SIDEBAR "PARTIELLE" AVEC EFFET "VAGUE"
    ==================================== */
 
-/* L'overlay pleine page */
-.sidebar-wave {
+/* L'overlay (fond sombre derrière le menu) */
+.sidebar-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1500; /* Juste en dessous du menu */
+}
+
+/* Le conteneur du menu partiel */
+.sidebar-partial {
+  position: fixed;
+  top: 0;
+  right: 0; /* Ancré à droite */
+  width: 300px; /* Largeur fixe */
+  max-width: 90%; /* Sécurité pour les très petits écrans */
   height: 100vh;
-  /* Fond noir comme dans la vidéo */
   background: #111111;
   z-index: 2000;
   
-  /* Centrer la navigation */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  
+  /* L'ombre est maintenant gérée par l'overlay */
+  /* box-shadow: -5px 0 30px rgba(0, 0, 0, 0.4); */
 }
 
-/* Le bouton "X" de fermeture (style de la vidéo) */
+/* Le bouton "X" de fermeture (inchangé) */
 .sidebar-close-x {
   position: absolute;
   top: 20px;
-  right: 20px;
+  right: 20px; 
   width: 30px;
   height: 24px;
   cursor: pointer;
@@ -50,7 +63,7 @@
 }
 
 
-/* La nouvelle navigation (style de la vidéo) */
+/* La navigation (style de la vidéo) */
 .sidebar-nav-wave {
   width: 100%;
 }
@@ -69,8 +82,7 @@
 .sidebar-nav-wave a {
   color: #e0e0e0;
   text-decoration: none;
-  /* Police large avec sérif (comme la vidéo) */
-  font-size: 2.5rem; 
+  font-size: 2.2rem; 
   font-family: serif;
   font-weight: 500;
   display: inline-block;
@@ -81,13 +93,3 @@
 .sidebar-nav-wave a:hover {
   color: #4ade80; /* Surlignage vert au survol */
 }
-
-
-/* ====================================
-   ANCIENNE SIDEBAR (STYLES SUPPRIMÉS)
-   ==================================== */
-
-/* Tous les anciens styles de .sidebar, .sidebar.open, 
-  .sidebar-nav, et .sidebar-overlay ont été supprimés 
-  car ils ne correspondent plus à la nouvelle vision.
-*/
