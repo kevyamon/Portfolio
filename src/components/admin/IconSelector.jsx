@@ -1,6 +1,7 @@
 // src/components/admin/IconSelector.jsx
 import React from 'react';
-import '../admin/Parcours.css'; // Pour le style .icon-option
+// CORRECTION : Le chemin a été mis à jour
+import '../../pages/admin/Parcours.css'; // Pour le style .icon-option
 
 // Les chemins vers vos icônes (assurez-vous qu'ils sont corrects)
 const ICONS = {

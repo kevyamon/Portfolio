@@ -1,3 +1,5 @@
+/* kevyamon/portfolio-frontend/src/App.css */
+
 .app-container {
   min-height: 100vh; /* Assure que le conteneur couvre toute la hauteur de la vue */
   background-image: url('./assets/background.png'); /* Chemin relatif vers l'image */
@@ -7,4 +9,10 @@
   background-repeat: no-repeat; /* Pas de répétition */
   color: #ffffff; /* Texte blanc pour un thème sombre */
   font-family: 'Arial', sans-serif; /* Police basique, modifiable plus tard */
+  
+  /* --- CORRECTION DÉFINITIVE DU DÉBORDEMENT --- */
+  /* Cette règle interdit tout défilement horizontal pour l'application */
+  overflow-x: hidden;
+  /* Garantit que la largeur ne dépasse jamais celle de l'écran */
+  width: 100%; 
 }
