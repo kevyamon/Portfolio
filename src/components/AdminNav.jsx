@@ -1,27 +1,16 @@
-// src/components/AdminNav.jsx
+// kevyamon/portfolio/src/components/AdminNav.jsx
 import { NavLink } from 'react-router-dom';
-import apiClient from '../api/axiosConfig';
 import { toast } from 'react-hot-toast';
+import './AdminNav.css';
 
 function AdminNav() {
   
   const handleLogout = async () => {
     try {
-      // Nous n'avons pas de route /logout, mais le simple fait
-      // de recharger la page sans le cookie JWT suffit.
-      // Pour une déconnexion propre, nous devrions créer une route /api/auth/logout
-      // qui vide le cookie. Pour l'instant, nous rechargeons simplement.
-      
-      // La "vraie" façon de faire (si on crée la route backend /logout):
-      // await apiClient.post('/api/auth/logout');
-      // toast.success('Déconnexion réussie');
-      // window.location.href = '/'; // Redirige vers l'accueil
-      
-      // L'astuce simple (supprimer le cookie manuellement) :
+      // Suppression manuelle du cookie pour déconnecter
       document.cookie = 'jwt=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
       toast.success('Déconnexion réussie');
-      window.location.href = '/'; // Redirige vers l'accueil
-      
+      window.location.href = '/'; 
     } catch (error) {
       toast.error('Erreur lors de la déconnexion');
     }
@@ -39,6 +28,9 @@ function AdminNav() {
             <NavLink to="/admin" end>Tableau de bord</NavLink>
           </li>
           <li>
+            <NavLink to="/admin/profile">Identité / Accueil</NavLink> {/* <-- NOUVEAU LIEN */}
+          </li>
+          <li>
             <NavLink to="/admin/parcours">Gérer le Parcours</NavLink>
           </li>
           <li>
@@ -50,7 +42,6 @@ function AdminNav() {
         </ul>
       </nav>
 
-      {/* Le bouton "Quitter" est poussé en bas par flex-grow */}
       <button onClick={handleLogout} className="admin-logout-btn">
         Quitter le Dashboard
       </button>

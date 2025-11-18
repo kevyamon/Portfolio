@@ -1,4 +1,4 @@
-// kevyamon/portfolio/Portfolio-e572a9177e0ae953ff4556e4fd832a1accac8d85/src/App.jsx
+// kevyamon/portfolio/src/App.jsx
 import { useState } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
@@ -7,19 +7,18 @@ import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import ScrollToTopButton from './components/ScrollToTopButton';
 import PageTransition from './components/PageTransition';
-import PageWipe from './components/PageWipe';
 import { Toaster } from 'react-hot-toast';
 import { useLongPress } from './hooks/useLongPress';
 import LoginModal from './components/LoginModal';
 
-// --- Importer les composants Admin ---
+// --- Composants Admin ---
 import ProtectedRoute from './components/ProtectedRoute'; 
 import AdminLayout from './components/AdminLayout'; 
 import DashboardHome from './pages/admin/DashboardHome'; 
-// --- IMPORTER LES NOUVELLES PAGES ADMIN ---
 import ManageParcours from './pages/admin/ManageParcours';
 import ManageTravaux from './pages/admin/ManageTravaux';
 import ManageMessages from './pages/admin/ManageMessages';
+import ManageProfile from './pages/admin/ManageProfile'; // <--- IMPORT NOUVEAU
 
 // Pages Publiques
 import Home from './pages/Home';
@@ -30,6 +29,7 @@ import Contact from './pages/Contact';
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const location = useLocation(); // Ajouté pour corriger l'erreur de key
 
   const toggleSidebar = () => setIsSidebarOpen(prev => !prev);
   const closeSidebar = () => setIsSidebarOpen(false);
@@ -47,29 +47,26 @@ function App() {
         onClose={() => setIsLoginModalOpen(false)} 
       />
 
-      {/* Note: Nous allons corriger l'affichage conditionnel du Header/Sidebar plus tard */}
       <Header onToggleSidebar={toggleSidebar} isOpen={isSidebarOpen} />
       <AnimatePresence>
         {isSidebarOpen && <Sidebar onClose={closeSidebar} />}
       </AnimatePresence>
       <ScrollToTopButton longPressEvents={longPressEvents} />
 
-      
       <Routes location={location} key={location.pathname}>
         
         {/* --- Routes du Dashboard Admin --- */}
         <Route element={<ProtectedRoute />}>
           <Route path="/admin" element={<AdminLayout />}>
-            {/* CORRECTION : Déclaration des sous-routes */}
             <Route index element={<DashboardHome />} />
+            <Route path="profile" element={<ManageProfile />} /> {/* <--- ROUTE AJOUTÉE */}
             <Route path="parcours" element={<ManageParcours />} />
             <Route path="travaux" element={<ManageTravaux />} />
             <Route path="messages" element={<ManageMessages />} />
           </Route>
         </Route>
 
-        {/* --- Routes Publiques (Site Principal) --- */}
-        {/* Note: Nous allons réintégrer AnimatePresence pour le site public bientôt */}
+        {/* --- Routes Publiques --- */}
         <Route 
           path="/" 
           element={
