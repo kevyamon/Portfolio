@@ -1,33 +1,61 @@
 // src/components/admin/IconSelector.jsx
 import React from 'react';
-// CORRECTION : Le chemin a été mis à jour
-import '../../pages/admin/Parcours.css'; // Pour le style .icon-option
-
-// Les chemins vers vos icônes (assurez-vous qu'ils sont corrects)
-const ICONS = {
-  diploma: '/src/assets/icons/diploma.svg',
-  stage: '/src/assets/icons/stage.svg',
-  lab: '/src/assets/icons/lab.svg',
-  code: '/src/assets/icons/code.svg',
-};
+import { iconLibrary } from '../../utils/iconLibrary';
+import '../admin/Parcours.css';
 
 function IconSelector({ selectedIcon, onSelectIcon }) {
   return (
     <div className="form-group">
-      <label className="icon-selector-label">Icône</label>
-      <div className="icon-selector">
-        {Object.keys(ICONS).map((iconKey) => (
-          <div
-            key={iconKey}
-            // Applique la classe .selected si c'est l'icône choisie
-            className={`icon-option ${selectedIcon === iconKey ? 'selected' : ''}`}
-            onClick={() => onSelectIcon(iconKey)}
-            title={iconKey} // Titre au survol
-          >
-            <img src={ICONS[iconKey]} alt={iconKey} />
-          </div>
-        ))}
+      <label className="icon-selector-label">Choisir une icône</label>
+      
+      <div className="icon-selector-grid" style={{ 
+        display: 'grid', 
+        gridTemplateColumns: 'repeat(auto-fill, minmax(50px, 1fr))', 
+        gap: '10px',
+        maxHeight: '200px',
+        overflowY: 'auto',
+        padding: '10px',
+        background: 'rgba(0,0,0,0.2)',
+        borderRadius: '8px'
+      }}>
+        {Object.keys(iconLibrary).map((iconKey) => {
+          const IconComponent = iconLibrary[iconKey].component;
+          const label = iconLibrary[iconKey].label;
+          const isSelected = selectedIcon === iconKey;
+
+          return (
+            <div
+              key={iconKey}
+              className={`icon-option ${isSelected ? 'selected' : ''}`}
+              onClick={() => onSelectIcon(iconKey)}
+              title={label}
+              style={{
+                width: '100%',
+                aspectRatio: '1',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                border: isSelected ? '2px solid #4ade80' : '1px solid rgba(255,255,255,0.1)',
+                background: isSelected ? 'rgba(74, 222, 128, 0.2)' : 'rgba(255,255,255,0.05)',
+                color: isSelected ? '#4ade80' : '#aaa',
+                fontSize: '1.5rem',
+                transition: 'all 0.2s ease'
+              }}
+            >
+              <IconComponent />
+            </div>
+          );
+        })}
       </div>
+      
+      {/* Petit label pour dire ce qu'on a choisi */}
+      {selectedIcon && iconLibrary[selectedIcon] && (
+        <p style={{ fontSize: '0.9rem', color: '#4ade80', marginTop: '5px' }}>
+          Sélectionné : <strong>{iconLibrary[selectedIcon].label}</strong>
+        </p>
+      )}
     </div>
   );
 }

@@ -1,10 +1,12 @@
+// src/pages/Parcours.jsx
 import { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import '../styles/pages.css';
 import MenuHint from '../components/MenuHint';
 import apiClient from '../api/axiosConfig';
 import LoadingSpinner from '../components/admin/LoadingSpinner';
-import { useSocket } from '../context/SocketContext'; // Import du hook
+import { useSocket } from '../context/SocketContext';
+import { getIconComponent } from '../utils/iconLibrary'; // <--- NOUVEAU
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -21,10 +23,8 @@ function Parcours() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   
-  // 1. Récupérer l'instance du socket
   const socket = useSocket();
 
-  // Fonction de chargement (sortie du useEffect pour être réutilisée)
   const fetchParcours = useCallback(async (showLoader = true) => {
     if (showLoader) setIsLoading(true);
     try {
@@ -39,23 +39,16 @@ function Parcours() {
   }, []);
 
   useEffect(() => {
-    fetchParcours(true); // Premier chargement
-
-    // 2. Écouter l'événement temps réel
+    fetchParcours(true);
     if (socket) {
       socket.on('timeline_updated', () => {
-        console.log("⚡ Mise à jour reçue via Socket !");
-        fetchParcours(false); // Recharger sans le spinner de chargement global
+        fetchParcours(false);
       });
     }
-
-    // Nettoyage de l'écouteur
     return () => {
       if (socket) socket.off('timeline_updated');
     };
   }, [socket, fetchParcours]);
-
-  const getIconPath = (iconName) => `/src/assets/icons/${iconName}.svg`;
 
   return (
     <section className="parcours-page page-container">
@@ -66,22 +59,31 @@ function Parcours() {
       {isLoading ? <LoadingSpinner /> : error ? <p style={{ textAlign: 'center', color: '#ff7b7b' }}>{error}</p> : (
         <motion.div className="timeline-vertical" variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
           {items.length === 0 && <p style={{ textAlign: 'center', color: '#aaa' }}>Aucune étape.</p>}
-          {items.map((item) => (
-            <motion.div key={item._id} className="timeline-step" variants={itemVariants}>
-              <div className="step-marker">
-                <div className="step-icon"><img src={getIconPath(item.icon)} alt={item.icon} /></div>
-                <div className="step-line"></div>
-              </div>
-              <div className="step-content">
-                <div className="step-card">
-                  <span className="step-year">{item.year}</span>
-                  <h3>{item.title}</h3>
-                  <span className="step-location">{item.location}</span>
-                  <p className="step-desc">{item.description}</p>
+          
+          {items.map((item) => {
+            // Récupération dynamique de l'icône
+            const IconComponent = getIconComponent(item.icon);
+
+            return (
+              <motion.div key={item._id} className="timeline-step" variants={itemVariants}>
+                <div className="step-marker">
+                  {/* Le conteneur rond */}
+                  <div className="step-icon" style={{ fontSize: '1.5rem', color: '#fff' }}>
+                    <IconComponent />
+                  </div>
+                  <div className="step-line"></div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
+                <div className="step-content">
+                  <div className="step-card">
+                    <span className="step-year">{item.year}</span>
+                    <h3>{item.title}</h3>
+                    <span className="step-location">{item.location}</span>
+                    <p className="step-desc">{item.description}</p>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
         </motion.div>
       )}
       <MenuHint />
