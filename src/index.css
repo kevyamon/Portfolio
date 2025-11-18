@@ -12,8 +12,7 @@
 }
 
 html {
-  /* SÉCURITÉ 1 : Fond noir par défaut pour tuer les bords blancs */
-  background-color: #000000;
+  background-color: #000000; /* Fond noir de sécurité */
   height: 100%;
 }
 
@@ -22,30 +21,9 @@ body {
   padding: 0;
   min-height: 100vh;
   color: #ffffff;
-  /* SÉCURITÉ 2 : On s'assure que le body ne déborde pas horizontalement */
-  overflow-x: hidden; 
+  overflow-x: hidden;
   position: relative;
-}
-
-/* LA SOLUTION MAGIQUE POUR MOBILE */
-/* Au lieu d'un background-image classique, on crée un calque fixe derrière */
-body::before {
-  content: "";
-  position: fixed; /* Reste collé à l'écran même quand on scrolle */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1; /* Reste derrière le contenu */
-  
-  /* L'image */
-  background-image: url('./assets/background.png');
-  background-size: cover; /* Remplit tout l'espace */
-  background-position: center center;
-  background-repeat: no-repeat;
-  
-  /* Astuce pour éviter le flou sur certains mobiles */
-  will-change: transform;
+  background-color: transparent; /* Important pour voir l'image derrière */
 }
 
 #root {

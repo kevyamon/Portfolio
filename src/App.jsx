@@ -11,14 +11,17 @@ import { Toaster } from 'react-hot-toast';
 import { useLongPress } from './hooks/useLongPress';
 import LoginModal from './components/LoginModal';
 
-// --- Composants Admin ---
+// Import de l'image pour être sûr du chemin
+import backgroundImage from './assets/background.png';
+
+// --- Importer les composants Admin ---
 import ProtectedRoute from './components/ProtectedRoute'; 
 import AdminLayout from './components/AdminLayout'; 
 import DashboardHome from './pages/admin/DashboardHome'; 
 import ManageParcours from './pages/admin/ManageParcours';
 import ManageTravaux from './pages/admin/ManageTravaux';
 import ManageMessages from './pages/admin/ManageMessages';
-import ManageProfile from './pages/admin/ManageProfile'; // <--- IMPORT NOUVEAU
+import ManageProfile from './pages/admin/ManageProfile';
 
 // Pages Publiques
 import Home from './pages/Home';
@@ -29,7 +32,7 @@ import Contact from './pages/Contact';
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  const location = useLocation(); // Ajouté pour corriger l'erreur de key
+  const location = useLocation(); 
 
   const toggleSidebar = () => setIsSidebarOpen(prev => !prev);
   const closeSidebar = () => setIsSidebarOpen(false);
@@ -41,6 +44,24 @@ function App() {
 
   return (
     <div className="app-container">
+      
+      {/* --- LE FOND D'ÉCRAN FIXE (LA CORRECTION) --- */}
+      <div 
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0, // Utiliser bottom:0 est mieux que height:100vh sur mobile
+          zIndex: -1,
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          pointerEvents: 'none' // Pour pouvoir cliquer au travers
+        }}
+      />
+
       <Toaster position="top-center" reverseOrder={false} />
       <LoginModal 
         isOpen={isLoginModalOpen} 
@@ -59,14 +80,14 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<DashboardHome />} />
-            <Route path="profile" element={<ManageProfile />} /> {/* <--- ROUTE AJOUTÉE */}
+            <Route path="profile" element={<ManageProfile />} />
             <Route path="parcours" element={<ManageParcours />} />
             <Route path="travaux" element={<ManageTravaux />} />
             <Route path="messages" element={<ManageMessages />} />
           </Route>
         </Route>
 
-        {/* --- Routes Publiques --- */}
+        {/* --- Routes Publiques (Site Principal) --- */}
         <Route 
           path="/" 
           element={
