@@ -1,7 +1,9 @@
 // src/components/admin/IconSelector.jsx
 import React from 'react';
 import { iconLibrary } from '../../utils/iconLibrary';
-import '../admin/Parcours.css';
+// --- CORRECTION DU CHEMIN ---
+// On remonte de 2 crans (../../) pour aller chercher le CSS dans 'pages/admin'
+import '../../pages/admin/Parcours.css'; 
 
 function IconSelector({ selectedIcon, onSelectIcon }) {
   return (
@@ -50,7 +52,6 @@ function IconSelector({ selectedIcon, onSelectIcon }) {
         })}
       </div>
       
-      {/* Petit label pour dire ce qu'on a choisi */}
       {selectedIcon && iconLibrary[selectedIcon] && (
         <p style={{ fontSize: '0.9rem', color: '#4ade80', marginTop: '5px' }}>
           Sélectionné : <strong>{iconLibrary[selectedIcon].label}</strong>
