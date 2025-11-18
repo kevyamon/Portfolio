@@ -71,14 +71,24 @@
 }
 
 /* Zone de fichier (pour l'upload) */
+/* CORRECTION MOBILE : On utilise flex pour bien centrer et on assure que c'est cliquable */
 .file-drop-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   border: 2px dashed rgba(255, 255, 255, 0.2);
   border-radius: 8px;
-  padding: 30px;
+  padding: 40px 20px; /* Plus d'espace pour les gros doigts */
   text-align: center;
   cursor: pointer;
   transition: all 0.3s ease;
   background: rgba(0, 0, 0, 0.1);
+  position: relative; /* Important */
+}
+.file-drop-zone:active {
+  background: rgba(74, 222, 128, 0.05);
+  border-color: #4ade80;
 }
 .file-drop-zone.drag-over {
   border-color: #4ade80;
@@ -86,11 +96,12 @@
 }
 .file-drop-zone p {
   color: #aaa;
-  margin: 0;
+  margin: 5px 0 0 0;
 }
 .file-drop-zone span {
   color: #4ade80;
   font-weight: 500;
+  text-decoration: underline;
 }
 
 /* Prévisualisation de l'image/vidéo */

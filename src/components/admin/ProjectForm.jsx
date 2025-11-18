@@ -5,7 +5,7 @@ import { toast } from 'react-hot-toast';
 import './AdminForms.css'; // Notre CSS générique
 
 // Icône d'upload
-const UploadIcon = () => <svg xmlns="http://www.w.w.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>;
+const UploadIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>;
 
 function ProjectForm({ itemToEdit, onFormSubmit, onCancel }) {
   // 1. État du formulaire
@@ -138,17 +138,20 @@ function ProjectForm({ itemToEdit, onFormSubmit, onCancel }) {
               </button>
             </div>
           ) : (
-            <div className="file-drop-zone">
+            // CORRECTION : Utilisation de <label> pour déclencher le clic partout
+            <label className="file-drop-zone">
               <UploadIcon />
-              <p>Glissez-déposez votre fichier ici</p>
-              <p>ou <span>cliquez pour sélectionner</span></p>
+              <p>Appuyez pour sélectionner</p>
+              <p style={{ fontSize: '0.8em', opacity: 0.7 }}>ou glissez un fichier ici</p>
+              
+              {/* L'input est caché mais présent dans le label */}
               <input 
                 type="file" 
                 accept="image/*,video/*" 
                 onChange={handleFileChange} 
-                style={{ opacity: 0, position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+                style={{ display: 'none' }}
               />
-            </div>
+            </label>
           )}
         </div>
 
