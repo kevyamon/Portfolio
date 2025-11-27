@@ -5,7 +5,8 @@ import { AnimatePresence } from 'framer-motion';
 import './App.css';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
-import ScrollToTopButton from './components/ScrollToTopButton';
+import ScrollToTopButton from './components/ScrollToTopButton'; // Ton bouton manuel
+import ScrollToTop from './components/ScrollToTop'; // <-- LE NOUVEAU COMPOSANT AUTO
 import PageTransition from './components/PageTransition';
 import { Toaster } from 'react-hot-toast';
 import { useLongPress } from './hooks/useLongPress';
@@ -45,24 +46,28 @@ function App() {
   return (
     <div className="app-container">
       
-      {/* --- LE FOND D'ÉCRAN FIXE (LA CORRECTION) --- */}
+      {/* --- LE FOND D'ÉCRAN FIXE --- */}
       <div 
         style={{
           position: 'fixed',
           top: 0,
           left: 0,
           right: 0,
-          bottom: 0, // Utiliser bottom:0 est mieux que height:100vh sur mobile
+          bottom: 0, 
           zIndex: -1,
           backgroundImage: `url(${backgroundImage})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
-          pointerEvents: 'none' // Pour pouvoir cliquer au travers
+          pointerEvents: 'none' 
         }}
       />
 
       <Toaster position="top-center" reverseOrder={false} />
+      
+      {/* Ce composant gère le scroll automatique à chaque changement de page */}
+      <ScrollToTop />
+
       <LoginModal 
         isOpen={isLoginModalOpen} 
         onClose={() => setIsLoginModalOpen(false)} 
@@ -72,6 +77,8 @@ function App() {
       <AnimatePresence>
         {isSidebarOpen && <Sidebar onClose={closeSidebar} />}
       </AnimatePresence>
+      
+      {/* Ton bouton manuel pour remonter */}
       <ScrollToTopButton longPressEvents={longPressEvents} />
 
       <Routes location={location} key={location.pathname}>
