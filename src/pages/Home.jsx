@@ -17,16 +17,15 @@ const containerVariants = {
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, x: 20 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.5, ease: "easeOut" } }
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
 };
 
 const imageVariants = {
-  hidden: { opacity: 0, scale: 0.9, x: -20 },
+  hidden: { opacity: 0, scale: 0.8 },
   visible: { 
     opacity: 1, 
     scale: 1, 
-    x: 0,
     transition: { duration: 0.7, ease: "easeOut" } 
   }
 };
@@ -73,27 +72,21 @@ function Home() {
   return (
     <section className="home-page">
       <motion.div 
-        className="home-content-split"
+        className="home-content"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
-        {/* Colonne Gauche : Identite visuelle */}
-        <motion.div className="home-col-image" variants={imageVariants}>
-          <div className="profile-img-container">
-            <img src={imageUrl} alt="Kevy Amon" className="profile-img" />
-          </div>
+        <motion.div className="home-image" variants={imageVariants}>
+          <img src={imageUrl} alt="Kevy Amon" className="profile-img" />
         </motion.div>
         
-        {/* Colonne Droite : Texte et CTA */}
-        <div className="home-col-text">
-          <motion.div variants={itemVariants}>
-            <h1 className="home-title">
-              <span className="line-intro">{titleLine1}</span>
-              <span className="line-highlight">{titleLine2}</span>
-              <span className="line-job">{titleLine3}</span>
-            </h1>
-          </motion.div>
+        <div className="home-text">
+          <motion.h1 className="home-title" variants={itemVariants}>
+            <span className="line">{titleLine1}</span>
+            <span className="line highlight">{titleLine2}</span>
+            <span className="line">{titleLine3}</span>
+          </motion.h1>
           
           <motion.p className="home-subtitle" variants={itemVariants}>
             {subtitle}
@@ -107,7 +100,7 @@ function Home() {
               onClick={openSidebar}
             >
               Decouvrir mon univers
-              <span className="cta-arrow">→</span>
+              <span className="cta-arrow">&#8594;</span>
             </button>
           </motion.div>
         </div>

@@ -13,14 +13,14 @@ const waveVariant = {
   animate: {
     clipPath: 'circle(150vh at calc(100% - 35px) 32px)',
     transition: {
-      duration: 0.4, // Reduit pour supprimer la latence
+      duration: 0.4, 
       ease: 'easeIn'
     }
   },
   exit: {
     clipPath: 'circle(0px at calc(100% - 35px) 32px)',
     transition: {
-      duration: 0.3, // Fermeture plus vive
+      duration: 0.3, 
       ease: 'easeOut'
     }
   }
@@ -43,7 +43,7 @@ const listContainerVariant = {
   animate: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.05, // Affichage en cascade plus rapide
+      staggerChildren: 0.05, 
       delayChildren: 0.15 
     }
   },
@@ -95,7 +95,7 @@ function Sidebar() {
           <ul>
             <motion.li variants={listItemVariant}><Link to="/" onClick={closeSidebar}>Accueil</Link></motion.li>
             <motion.li variants={listItemVariant}><Link to="/parcours" onClick={closeSidebar}>Parcours</Link></motion.li>
-            <motion.li variants={listItemVariant}><Link to="/travaux" onClick={closeSidebar}>Travaux Pratiques</Link></motion.li>
+            <motion.li variants={listItemVariant}><Link to="/travaux" onClick={closeSidebar}>Mes Accomplissements</Link></motion.li>
             <motion.li variants={listItemVariant}><Link to="/contact" onClick={closeSidebar}>Contact</Link></motion.li>
           </ul>
         </motion.nav>
