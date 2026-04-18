@@ -22,11 +22,12 @@ const itemVariants = {
 };
 
 const imageVariants = {
-  hidden: { opacity: 0, scale: 0.8 },
+  hidden: { opacity: 0, scale: 0.8, rotate: -5 },
   visible: { 
     opacity: 1, 
     scale: 1, 
-    transition: { duration: 0.7, ease: "easeOut" } 
+    rotate: 0,
+    transition: { duration: 0.8, ease: "easeOut" } 
   }
 };
 
@@ -49,13 +50,9 @@ function Home() {
 
   useEffect(() => {
     fetchProfile();
-
     if (socket) {
-      socket.on('profile_updated', () => {
-        fetchProfile();
-      });
+      socket.on('profile_updated', fetchProfile);
     }
-
     return () => {
       if (socket) socket.off('profile_updated');
     };
@@ -72,27 +69,27 @@ function Home() {
   return (
     <section className="home-page">
       <motion.div 
-        className="home-content"
+        className="home-content-split"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
-        <motion.div className="home-image" variants={imageVariants}>
-          <img src={imageUrl} alt="Kevy Amon" className="profile-img" />
-        </motion.div>
-        
-        <div className="home-text">
+        <div className="home-col-text">
+          <motion.div className="welcome-badge" variants={itemVariants}>
+            <span className="pulse-dot"></span> Bienvenue
+          </motion.div>
+          
           <motion.h1 className="home-title" variants={itemVariants}>
             <span className="line">{titleLine1}</span>
             <span className="line highlight">{titleLine2}</span>
-            <span className="line">{titleLine3}</span>
+            <span className="line line-job">{titleLine3}</span>
           </motion.h1>
           
           <motion.p className="home-subtitle" variants={itemVariants}>
             {subtitle}
           </motion.p>
           
-          <motion.div variants={itemVariants}>
+          <motion.div variants={itemVariants} className="cta-container">
             <button 
               className="cta-button-main" 
               whileHover={{ scale: 1.05, boxShadow: "0 15px 30px rgba(16, 185, 129, 0.4)" }}
@@ -104,6 +101,12 @@ function Home() {
             </button>
           </motion.div>
         </div>
+
+        <motion.div className="home-col-image" variants={imageVariants}>
+          <div className="image-wrapper">
+            <img src={imageUrl} alt="Kevy Amon" className="profile-img" />
+          </div>
+        </motion.div>
       </motion.div>
       <MenuHint />
     </section>

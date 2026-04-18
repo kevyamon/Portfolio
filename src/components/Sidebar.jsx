@@ -4,8 +4,6 @@ import { motion } from 'framer-motion';
 import { useUI } from '../context/UIContext';
 import './Sidebar.css';
 
-// --- Animations Acceleres ---
-
 const waveVariant = {
   initial: {
     clipPath: 'circle(0px at calc(100% - 35px) 32px)',
@@ -95,7 +93,7 @@ function Sidebar() {
           <ul>
             <motion.li variants={listItemVariant}><Link to="/" onClick={closeSidebar}>Accueil</Link></motion.li>
             <motion.li variants={listItemVariant}><Link to="/parcours" onClick={closeSidebar}>Parcours</Link></motion.li>
-            <motion.li variants={listItemVariant}><Link to="/travaux" onClick={closeSidebar}>Mes Accomplissements</Link></motion.li>
+            <motion.li variants={listItemVariant}><Link to="/travaux" onClick={closeSidebar}>Accomplissements</Link></motion.li>
             <motion.li variants={listItemVariant}><Link to="/contact" onClick={closeSidebar}>Contact</Link></motion.li>
           </ul>
         </motion.nav>
