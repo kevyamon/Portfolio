@@ -8,17 +8,18 @@ import LoadingSpinner from '../components/admin/LoadingSpinner';
 import { useSocket } from '../context/SocketContext';
 import { useUI } from '../context/UIContext';
 
+// --- Animations d'entree ---
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.1 }
+    transition: { staggerChildren: 0.15, delayChildren: 0.1 }
   }
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 15 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } }
 };
 
 const imageVariants = {
@@ -26,7 +27,31 @@ const imageVariants = {
   visible: { 
     opacity: 1, 
     scale: 1, 
-    transition: { duration: 0.6, ease: "easeOut" } 
+    transition: { duration: 0.8, ease: "easeOut" } 
+  }
+};
+
+// --- Animations perpetuelles (Ambiance) ---
+const floatAnimation = {
+  y: [-8, 8, -8],
+  transition: { duration: 6, repeat: Infinity, ease: "easeInOut" }
+};
+
+const ambientVariants1 = {
+  animate: { 
+    x: [0, 30, 0], 
+    y: [0, 40, 0], 
+    scale: [1, 1.1, 1],
+    transition: { duration: 15, repeat: Infinity, ease: "easeInOut" } 
+  }
+};
+
+const ambientVariants2 = {
+  animate: { 
+    x: [0, -40, 0], 
+    y: [0, -20, 0], 
+    scale: [1, 1.2, 1],
+    transition: { duration: 18, repeat: Infinity, ease: "easeInOut", delay: 2 } 
   }
 };
 
@@ -67,6 +92,12 @@ function Home() {
 
   return (
     <section className="home-page">
+      {/* Arriere-plan organique */}
+      <div className="ambient-background">
+        <motion.div className="ambient-orb orb-1" variants={ambientVariants1} animate="animate" />
+        <motion.div className="ambient-orb orb-2" variants={ambientVariants2} animate="animate" />
+      </div>
+
       <motion.div 
         className="home-content-linear"
         variants={containerVariants}
@@ -74,12 +105,14 @@ function Home() {
         animate="visible"
       >
         <motion.div className="home-image-wrapper" variants={imageVariants}>
-          <img src={imageUrl} alt="Kevy Amon" className="profile-img-linear" />
+          <motion.div animate={floatAnimation}>
+            <img src={imageUrl} alt="Kevy Amon" className="profile-img-linear" />
+          </motion.div>
         </motion.div>
         
         <div className="home-text-center">
           <motion.div className="welcome-badge-linear" variants={itemVariants}>
-            Bienvenue
+            <span className="dot-pulse"></span> Bienvenue
           </motion.div>
 
           <motion.h1 className="home-title-linear" variants={itemVariants}>
@@ -95,7 +128,7 @@ function Home() {
           <motion.div variants={itemVariants}>
             <button 
               className="cta-button-linear" 
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.05, boxShadow: "0 10px 25px rgba(16, 185, 129, 0.4)" }}
               whileTap={{ scale: 0.95 }}
               onClick={openSidebar}
             >

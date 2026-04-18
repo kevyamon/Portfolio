@@ -41,43 +41,73 @@
 }
 
 /* ================================
-   PAGE ACCUEIL (STRUCTURE LINEAIRE MINIMALISTE)
+   PAGE ACCUEIL (STRUCTURE LINEAIRE + MOTION)
    ================================ */
 
 .home-page {
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Centrage vertical parfait */
+  justify-content: center; 
   align-items: center;
   padding: 60px 5% 40px; 
   position: relative;
   background: var(--color-background);
+  overflow: hidden;
 }
 
+/* Arriere-plan ambiant (Motion Design) */
+.ambient-background {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.ambient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.08; /* Tres discret, juste pour l'ambiance */
+}
+
+.orb-1 {
+  width: 50vw; height: 50vw;
+  background: var(--color-primary);
+  top: -10%; left: -10%;
+}
+
+.orb-2 {
+  width: 40vw; height: 40vw;
+  background: #ffffff;
+  bottom: 0%; right: -10%;
+}
+
+/* Contenu principal */
 .home-content-linear {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 20px; /* Espace reduit pour tout garder visible */
+  gap: 20px; 
   max-width: 800px;
   width: 100%;
   z-index: 2;
+  position: relative;
 }
 
 .home-image-wrapper {
   margin-bottom: 10px;
 }
 
-/* Image plus petite pour ne pas pousser le texte vers le bas */
 .profile-img-linear {
   width: 160px;
   height: 160px;
   object-fit: cover;
   border-radius: 50%;
   border: 3px solid var(--color-primary);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(16, 185, 129, 0.2);
 }
 
 .home-text-center {
@@ -88,12 +118,31 @@
 }
 
 .welcome-badge-linear {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--color-primary);
   text-transform: uppercase;
   letter-spacing: 2px;
   margin-bottom: 15px;
+  background: rgba(16, 185, 129, 0.1);
+  padding: 6px 16px;
+  border-radius: 50px;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.dot-pulse {
+  width: 6px; height: 6px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  animation: pulse-op 2s infinite ease-in-out;
+}
+
+@keyframes pulse-op {
+  0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--color-primary); }
+  50% { opacity: 0.3; box-shadow: 0 0 0 transparent; }
 }
 
 .home-title-linear {
@@ -107,13 +156,23 @@
 
 .home-title-linear .line { display: block; }
 
+/* Effet Shimmer sur le nom */
 .highlight-linear {
-  color: var(--color-primary);
   font-size: 3rem;
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 1px;
   margin: 5px 0;
+  background: linear-gradient(110deg, var(--color-primary) 10%, #a7f3d0 50%, var(--color-primary) 90%);
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shimmer 5s linear infinite;
+}
+
+@keyframes shimmer {
+  to { background-position: 200% center; }
 }
 
 .line-job-linear {
@@ -132,6 +191,7 @@
   font-weight: 400;
 }
 
+/* Bouton avec respiration naturelle */
 .cta-button-linear {
   background: var(--color-primary);
   color: var(--color-background);
@@ -145,15 +205,21 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  box-shadow: 0 5px 15px rgba(16, 185, 129, 0.2);
-  transition: var(--transition-normal);
+  box-shadow: 0 5px 20px rgba(16, 185, 129, 0.2);
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
   text-transform: uppercase;
   letter-spacing: 1px;
+  animation: breathe 4s infinite ease-in-out;
 }
 
+@keyframes breathe {
+  0%, 100% { transform: scale(1); box-shadow: 0 5px 20px rgba(16, 185, 129, 0.2); }
+  50% { transform: scale(1.02); box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3); }
+}
+
+/* Stop l'animation de respiration quand on survole pour laisser place au hover Framer Motion */
 .cta-button-linear:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
+  animation: none;
 }
 
 .cta-arrow-linear {
@@ -166,7 +232,7 @@
 }
 
 /* ================================
-   RESPONSIVE (POUR GARDER LE CTA VISIBLE)
+   RESPONSIVE
    ================================ */
 @media (max-width: 768px) {
   .home-page { padding-top: 80px; justify-content: flex-start; }
