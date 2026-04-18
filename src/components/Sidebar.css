@@ -2,7 +2,7 @@
    SIDEBAR "PARTIELLE" AVEC EFFET "VAGUE"
    ==================================== */
 
-/* L'overlay (fond sombre derrière le menu) */
+/* L'overlay (fond sombre derriere le menu) */
 .sidebar-overlay {
   position: fixed;
   top: 0;
@@ -10,30 +10,26 @@
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.6);
-  z-index: 1500; /* Juste en dessous du menu */
+  z-index: 1500;
 }
 
 /* Le conteneur du menu partiel */
 .sidebar-partial {
   position: fixed;
   top: 0;
-  right: 0; /* Ancré à droite */
-  width: 300px; /* Largeur fixe */
-  max-width: 90%; /* Sécurité pour les très petits écrans */
+  right: 0;
+  width: 300px;
+  max-width: 90%;
   height: 100vh;
   background: #111111;
   z-index: 2000;
-  
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  
-  /* L'ombre est maintenant gérée par l'overlay */
-  /* box-shadow: -5px 0 30px rgba(0, 0, 0, 0.4); */
 }
 
-/* Le bouton "X" de fermeture (inchangé) */
+/* Le bouton "X" de fermeture */
 .sidebar-close-x {
   position: absolute;
   top: 20px;
@@ -62,10 +58,11 @@
   transform: rotate(-45deg);
 }
 
-
-/* La navigation (style de la vidéo) */
+/* La navigation */
 .sidebar-nav-wave {
   width: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
 }
 
 .sidebar-nav-wave ul {
@@ -88,8 +85,29 @@
   display: inline-block;
   padding: 10px;
   transition: color 0.3s ease;
+  max-width: 100%;
+  word-wrap: break-word;
+  line-height: 1.2;
 }
 
 .sidebar-nav-wave a:hover {
-  color: #4ade80; /* Surlignage vert au survol */
+  color: #4ade80;
+}
+
+/* ====================================
+   RESPONSIVE (SMARTPHONES)
+   ==================================== */
+@media (max-width: 480px) {
+  .sidebar-partial {
+    width: 260px;
+  }
+  
+  .sidebar-nav-wave a {
+    font-size: 1.6rem;
+    padding: 8px 5px;
+  }
+  
+  .sidebar-nav-wave li {
+    margin-bottom: 25px;
+  }
 }
