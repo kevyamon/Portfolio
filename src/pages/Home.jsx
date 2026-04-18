@@ -12,22 +12,34 @@ const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.15, delayChildren: 0.1 }
+    transition: { staggerChildren: 0.15, delayChildren: 0.2 }
   }
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+  hidden: { opacity: 0, y: 30 },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } 
+  }
 };
 
 const imageVariants = {
-  hidden: { opacity: 0, scale: 0.8, rotate: -5 },
+  hidden: { opacity: 0, scale: 0.9, filter: 'blur(10px)' },
   visible: { 
     opacity: 1, 
     scale: 1, 
-    rotate: 0,
-    transition: { duration: 0.8, ease: "easeOut" } 
+    filter: 'blur(0px)',
+    transition: { duration: 1, ease: "easeOut" } 
+  }
+};
+
+const blobVariants = {
+  animate: {
+    scale: [1, 1.2, 1],
+    rotate: [0, 90, 0],
+    transition: { duration: 20, repeat: Infinity, ease: "linear" }
   }
 };
 
@@ -67,45 +79,54 @@ function Home() {
   const imageUrl = profile?.imageUrl || "/src/assets/profile.jpg";
 
   return (
-    <section className="home-page">
+    <section className="home-page glass-theme">
+      {/* Arriere-plan anime abstrait */}
+      <div className="glass-background-container">
+        <motion.div className="glass-blob blob-1" variants={blobVariants} animate="animate"></motion.div>
+        <motion.div className="glass-blob blob-2" variants={blobVariants} animate="animate" style={{ animationDelay: '-10s' }}></motion.div>
+      </div>
+
       <motion.div 
-        className="home-content-split"
+        className="home-content-glass"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
-        <div className="home-col-text">
-          <motion.div className="welcome-badge" variants={itemVariants}>
-            <span className="pulse-dot"></span> Bienvenue
-          </motion.div>
-          
-          <motion.h1 className="home-title" variants={itemVariants}>
-            <span className="line">{titleLine1}</span>
-            <span className="line highlight">{titleLine2}</span>
-            <span className="line line-job">{titleLine3}</span>
-          </motion.h1>
-          
-          <motion.p className="home-subtitle" variants={itemVariants}>
-            {subtitle}
-          </motion.p>
-          
-          <motion.div variants={itemVariants} className="cta-container">
-            <button 
-              className="cta-button-main" 
-              whileHover={{ scale: 1.05, boxShadow: "0 15px 30px rgba(16, 185, 129, 0.4)" }}
-              whileTap={{ scale: 0.95 }}
-              onClick={openSidebar}
-            >
-              Decouvrir mon univers
-              <span className="cta-arrow">&#8594;</span>
-            </button>
-          </motion.div>
-        </div>
-
-        <motion.div className="home-col-image" variants={imageVariants}>
-          <div className="image-wrapper">
-            <img src={imageUrl} alt="Kevy Amon" className="profile-img" />
+        <motion.div className="glass-card" variants={itemVariants}>
+          <div className="home-col-text">
+            <motion.div className="welcome-badge-premium" variants={itemVariants}>
+              <span className="pulse-dot-premium"></span> Bienvenue
+            </motion.div>
+            
+            <motion.h1 className="home-title-premium" variants={itemVariants}>
+              <span className="line">{titleLine1}</span>
+              <span className="line highlight-premium">{titleLine2}</span>
+              <span className="line line-job-premium">{titleLine3}</span>
+            </motion.h1>
+            
+            <motion.p className="home-subtitle-premium" variants={itemVariants}>
+              {subtitle}
+            </motion.p>
+            
+            <motion.div variants={itemVariants} className="cta-container">
+              <button 
+                className="cta-button-premium" 
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={openSidebar}
+              >
+                <span>Decouvrir mon univers</span>
+                <span className="cta-arrow-premium">&#8594;</span>
+              </button>
+            </motion.div>
           </div>
+
+          <motion.div className="home-col-image-premium" variants={imageVariants}>
+            <div className="image-wrapper-premium">
+              <div className="image-glow"></div>
+              <img src={imageUrl} alt="Kevy Amon" className="profile-img-premium" />
+            </div>
+          </motion.div>
         </motion.div>
       </motion.div>
       <MenuHint />

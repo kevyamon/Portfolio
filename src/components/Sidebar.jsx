@@ -4,56 +4,38 @@ import { motion } from 'framer-motion';
 import { useUI } from '../context/UIContext';
 import './Sidebar.css';
 
-const waveVariant = {
-  initial: {
-    clipPath: 'circle(0px at calc(100% - 35px) 32px)',
-  },
-  animate: {
-    clipPath: 'circle(150vh at calc(100% - 35px) 32px)',
-    transition: {
-      duration: 0.4, 
-      ease: 'easeIn'
+const containerVariant = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { 
+      duration: 0.4,
+      staggerChildren: 0.1, 
+      delayChildren: 0.1 
     }
   },
   exit: {
-    clipPath: 'circle(0px at calc(100% - 35px) 32px)',
-    transition: {
-      duration: 0.3, 
-      ease: 'easeOut'
+    opacity: 0,
+    transition: { 
+      duration: 0.3,
+      staggerChildren: 0.05, 
+      staggerDirection: -1 
     }
   }
 };
 
-const overlayVariant = {
-  initial: { opacity: 0 },
-  animate: { 
-    opacity: 1,
-    transition: { duration: 0.3, ease: 'easeInOut' }
+const itemVariant = {
+  hidden: { opacity: 0, y: 80, rotate: 2 },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    rotate: 0,
+    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } 
   },
   exit: { 
-    opacity: 0,
-    transition: { duration: 0.2, ease: 'easeInOut' }
-  }
-};
-
-const listContainerVariant = {
-  initial: { opacity: 0 },
-  animate: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.05, 
-      delayChildren: 0.15 
-    }
-  },
-  exit: { opacity: 0 }
-};
-
-const listItemVariant = {
-  initial: { opacity: 0, y: 10 },
-  animate: { 
-    opacity: 1, 
-    y: 0,
-    transition: { ease: 'easeOut', duration: 0.2 }
+    opacity: 0, 
+    y: -40, 
+    transition: { duration: 0.3, ease: "easeInOut" } 
   }
 };
 
@@ -61,44 +43,45 @@ function Sidebar() {
   const { closeSidebar } = useUI();
 
   return (
-    <>
-      <motion.div
-        className="sidebar-overlay"
-        variants={overlayVariant}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        onClick={closeSidebar}
-      ></motion.div>
-
-      <motion.aside 
-        className="sidebar-partial"
-        variants={waveVariant}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-      >
-        <div className="sidebar-close-x" onClick={closeSidebar}>
+    <motion.div 
+      className="sidebar-fullscreen"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1, transition: { duration: 0.4 } }}
+      exit={{ opacity: 0, transition: { delay: 0.3, duration: 0.4 } }}
+    >
+      <div className="sidebar-close-massive" onClick={closeSidebar}>
+        <span className="close-text">Fermer</span>
+        <div className="close-icon">
           <span className="bar"></span>
           <span className="bar"></span>
         </div>
+      </div>
 
+      <div className="sidebar-content-wrapper">
         <motion.nav 
-          className="sidebar-nav-wave"
-          variants={listContainerVariant}
-          initial="initial"
-          animate="animate"
+          className="sidebar-nav-cinematic"
+          variants={containerVariant}
+          initial="hidden"
+          animate="visible"
           exit="exit"
         >
           <ul>
-            <motion.li variants={listItemVariant}><Link to="/" onClick={closeSidebar}>Accueil</Link></motion.li>
-            <motion.li variants={listItemVariant}><Link to="/parcours" onClick={closeSidebar}>Parcours</Link></motion.li>
-            <motion.li variants={listItemVariant}><Link to="/travaux" onClick={closeSidebar}>Accomplissements</Link></motion.li>
-            <motion.li variants={listItemVariant}><Link to="/contact" onClick={closeSidebar}>Contact</Link></motion.li>
+            <motion.li variants={itemVariant}>
+              <Link to="/" onClick={closeSidebar}>Accueil</Link>
+            </motion.li>
+            <motion.li variants={itemVariant}>
+              <Link to="/parcours" onClick={closeSidebar}>Parcours</Link>
+            </motion.li>
+            <motion.li variants={itemVariant}>
+              <Link to="/travaux" onClick={closeSidebar}>Accomplissements</Link>
+            </motion.li>
+            <motion.li variants={itemVariant}>
+              <Link to="/contact" onClick={closeSidebar}>Contact</Link>
+            </motion.li>
           </ul>
         </motion.nav>
-      </motion.aside>
-    </>
+      </div>
+    </motion.div>
   );
 }
 
