@@ -1,0 +1,5 @@
+//kevyamon/portfolio/public/robots.txt
+User-agent: *
+Allow: /
+
+Sitemap: https://kevinamon-iacc.onrender.com/sitemap.xml
