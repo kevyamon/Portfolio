@@ -1,13 +1,17 @@
-/* kevyamon/portfolio/src/components/ContentModal.css */
+/* src/components/ContentModal.css */
+
 .modal-backdrop {
   position: fixed;
+  /* On remplace 100vw/100vh par un ancrage aux 4 coins pour ignorer la scrollbar */
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  right: 0;
+  bottom: 0;
   background: rgba(10, 10, 10, 0.85);
   backdrop-filter: blur(5px);
   z-index: 9999;
+  
+  /* Flexbox pour un centrage absolu et parfait */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,11 +24,13 @@
   border-radius: 16px;
   width: 100%;
   max-width: 700px;
-  max-height: 85vh; /* La modale ne prend pas tout l'ecran */
+  max-height: 85vh; 
   display: flex;
   flex-direction: column;
   position: relative;
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+  /* On s'assure que la boite ne puisse pas deborder de son conteneur flex */
+  margin: auto; 
 }
 
 .modal-close-btn {
@@ -92,10 +98,11 @@
 }
 
 .modal-text-content {
-  color: #d1d5db;
+  color: var(--color-text);
+  opacity: 0.9;
   line-height: 1.8;
   font-size: 1.05rem;
-  white-space: pre-line; /* Conserve les sauts de ligne du texte */
+  white-space: pre-line;
   margin: 0;
 }
 

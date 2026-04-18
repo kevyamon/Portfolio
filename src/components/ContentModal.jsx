@@ -1,4 +1,4 @@
-//kevyamon/portfolio/src/components/ContentModal.jsx
+//src/components/ContentModal.jsx
 import { useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './ContentModal.css';
@@ -18,19 +18,26 @@ function ContentModal({ isOpen, onClose, title, subtitle, content, children }) {
   const scrollRef = useRef(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
 
-  // Verrouiller le scroll de la page principale quand la modale est ouverte
+  // Blocage strict du scroll en arriere-plan
   useEffect(() => {
     if (isOpen) {
+      // On bloque le body ET le html pour etre certain de couvrir tous les navigateurs
       document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
     }
-    return () => { document.body.style.overflow = 'unset'; };
+    
+    // Nettoyage lors du demontage du composant
+    return () => { 
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    };
   }, [isOpen]);
 
   const handleScroll = () => {
     if (scrollRef.current) {
-      // Afficher le bouton si on a defile de plus de 100px vers le bas
       setShowScrollTop(scrollRef.current.scrollTop > 100);
     }
   };
@@ -41,61 +48,59 @@ function ContentModal({ isOpen, onClose, title, subtitle, content, children }) {
     }
   };
 
-  if (!isOpen) return null;
-
+  // On enveloppe tout dans AnimatePresence et on conditionne l'affichage a l'interieur
+  // Cela permet a Framer Motion de jouer l'animation de sortie (exit) avant de retirer l'element du DOM
   return (
     <AnimatePresence>
-      <motion.div 
-        className="modal-backdrop"
-        variants={backdropVariants}
-        initial="hidden"
-        animate="visible"
-        exit="hidden"
-        onClick={onClose}
-      >
+      {isOpen && (
         <motion.div 
-          className="modal-box"
-          variants={modalVariants}
+          className="modal-backdrop"
+          variants={backdropVariants}
           initial="hidden"
           animate="visible"
-          exit="exit"
-          onClick={(e) => e.stopPropagation()} // Empeche la fermeture si on clique a l'interieur
+          exit="hidden"
+          onClick={onClose}
         >
-          <button className="modal-close-btn" onClick={onClose}>&times;</button>
-          
-          <div className="modal-header">
-            {subtitle && <span className="modal-subtitle">{subtitle}</span>}
-            <h3 className="modal-title">{title}</h3>
-          </div>
-
-          <div 
-            className="modal-body-scroll" 
-            ref={scrollRef} 
-            onScroll={handleScroll}
+          <motion.div 
+            className="modal-box"
+            variants={modalVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            onClick={(e) => e.stopPropagation()} 
           >
-            {/* Contenu textuel standard */}
-            {content && <p className="modal-text-content">{content}</p>}
+            <button className="modal-close-btn" onClick={onClose}>&times;</button>
             
-            {/* Espace pour injecter d'autres choses (comme des photos/videos plus tard) */}
-            {children}
-          </div>
+            <div className="modal-header">
+              {subtitle && <span className="modal-subtitle">{subtitle}</span>}
+              <h3 className="modal-title">{title}</h3>
+            </div>
 
-          {/* Bouton Scroll To Top Interne */}
-          <AnimatePresence>
-            {showScrollTop && (
-              <motion.button 
-                className="modal-scroll-top-btn"
-                onClick={scrollToTop}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 20 }}
-              >
-                &#8593;
-              </motion.button>
-            )}
-          </AnimatePresence>
+            <div 
+              className="modal-body-scroll" 
+              ref={scrollRef} 
+              onScroll={handleScroll}
+            >
+              {content && <p className="modal-text-content">{content}</p>}
+              {children}
+            </div>
+
+            <AnimatePresence>
+              {showScrollTop && (
+                <motion.button 
+                  className="modal-scroll-top-btn"
+                  onClick={scrollToTop}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 20 }}
+                >
+                  &#8593;
+                </motion.button>
+              )}
+            </AnimatePresence>
+          </motion.div>
         </motion.div>
-      </motion.div>
+      )}
     </AnimatePresence>
   );
 }
