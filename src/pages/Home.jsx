@@ -8,26 +8,26 @@ import LoadingSpinner from '../components/admin/LoadingSpinner';
 import { useSocket } from '../context/SocketContext';
 import { useUI } from '../context/UIContext';
 
-// --- Animations Framer Motion ---
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.2, delayChildren: 0.1 }
+    transition: { staggerChildren: 0.15, delayChildren: 0.1 }
   }
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+  hidden: { opacity: 0, x: 20 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.5, ease: "easeOut" } }
 };
 
 const imageVariants = {
-  hidden: { opacity: 0, scale: 0.8 },
+  hidden: { opacity: 0, scale: 0.9, x: -20 },
   visible: { 
     opacity: 1, 
     scale: 1, 
-    transition: { duration: 0.8, ease: "easeOut" } 
+    x: 0,
+    transition: { duration: 0.7, ease: "easeOut" } 
   }
 };
 
@@ -35,7 +35,7 @@ function Home() {
   const [profile, setProfile] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const socket = useSocket();
-  const { openSidebar } = useUI(); // Remplacement du querySelector
+  const { openSidebar } = useUI();
 
   const fetchProfile = async () => {
     try {
@@ -53,7 +53,6 @@ function Home() {
 
     if (socket) {
       socket.on('profile_updated', () => {
-        console.log("Profil mis a jour via Socket !");
         fetchProfile();
       });
     }
@@ -74,35 +73,43 @@ function Home() {
   return (
     <section className="home-page">
       <motion.div 
-        className="home-content"
+        className="home-content-split"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
-        <motion.div className="home-image" variants={imageVariants}>
-          <img src={imageUrl} alt="Profil Kevy" className="profile-img" />
+        {/* Colonne Gauche : Identite visuelle */}
+        <motion.div className="home-col-image" variants={imageVariants}>
+          <div className="profile-img-container">
+            <img src={imageUrl} alt="Kevy Amon" className="profile-img" />
+          </div>
         </motion.div>
         
-        <div className="home-text">
-          <motion.h1 className="home-title" variants={itemVariants}>
-            <span className="line">{titleLine1}</span>
-            <span className="line highlight">{titleLine2}</span>
-            <span className="line">{titleLine3}</span>
-          </motion.h1>
+        {/* Colonne Droite : Texte et CTA */}
+        <div className="home-col-text">
+          <motion.div variants={itemVariants}>
+            <h1 className="home-title">
+              <span className="line-intro">{titleLine1}</span>
+              <span className="line-highlight">{titleLine2}</span>
+              <span className="line-job">{titleLine3}</span>
+            </h1>
+          </motion.div>
           
           <motion.p className="home-subtitle" variants={itemVariants}>
             {subtitle}
           </motion.p>
           
-          <motion.button 
-            className="cta-button" 
-            variants={itemVariants}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={openSidebar}
-          >
-            Decouvrir mon univers
-          </motion.button>
+          <motion.div variants={itemVariants}>
+            <button 
+              className="cta-button-main" 
+              whileHover={{ scale: 1.05, boxShadow: "0 15px 30px rgba(16, 185, 129, 0.4)" }}
+              whileTap={{ scale: 0.95 }}
+              onClick={openSidebar}
+            >
+              Decouvrir mon univers
+              <span className="cta-arrow">→</span>
+            </button>
+          </motion.div>
         </div>
       </motion.div>
       <MenuHint />
