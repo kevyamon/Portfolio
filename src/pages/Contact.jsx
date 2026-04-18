@@ -6,18 +6,17 @@ import MenuHint from '../components/MenuHint';
 import apiClient from '../api/axiosConfig';
 import { toast } from 'react-hot-toast';
 
-// --- Animations en cascade ---
 const formContainerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.15, delayChildren: 0.2 }
+    transition: { staggerChildren: 0.1, delayChildren: 0.2 }
   }
 };
 
 const inputVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } }
+  hidden: { opacity: 0, y: 15 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: 'easeOut' } }
 };
 
 function Contact() {
@@ -52,14 +51,14 @@ function Contact() {
     <section className="contact-page page-container">
       <motion.h2 
         className="section-title"
-        initial={{ opacity: 0, y: -30 }}
+        initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
+        transition={{ duration: 0.6 }}
       >
         Contactez-moi
       </motion.h2>
 
-      <div className="container" style={{ maxWidth: '600px', width: '100%' }}>
+      <div className="contact-wrapper">
         <motion.form 
           onSubmit={handleSubmit} 
           className="step-card contact-form"
@@ -77,7 +76,7 @@ function Contact() {
               onChange={handleChange} 
               required 
               className="form-input"
-              placeholder="Ex: Jean Dupont"
+              placeholder="Votre nom"
             />
           </motion.div>
 
@@ -91,7 +90,7 @@ function Contact() {
               onChange={handleChange} 
               required 
               className="form-input"
-              placeholder="Ex: jean.dupont@email.com"
+              placeholder="votre@email.com"
             />
           </motion.div>
 
@@ -103,9 +102,9 @@ function Contact() {
               value={formData.message} 
               onChange={handleChange} 
               required 
-              rows="6"
+              rows="5"
               className="form-input textarea-input"
-              placeholder="Comment puis-je vous aider ?"
+              placeholder="En quoi puis-je vous aider ?"
             />
           </motion.div>
 
@@ -117,7 +116,7 @@ function Contact() {
             whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
             whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
           >
-            {isSubmitting ? 'Envoi en cours...' : 'Envoyer le message'}
+            {isSubmitting ? 'Envoi...' : 'Envoyer'}
           </motion.button>
         </motion.form>
       </div>

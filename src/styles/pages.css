@@ -1,5 +1,3 @@
-/* kevyamon/portfolio/src/styles/pages.css */
-
 /* ================================
    STYLES GENERAUX POUR TOUTES LES PAGES
    ================================ */
@@ -147,9 +145,6 @@
   position: relative;
   padding-bottom: 60px;
 }
-.timeline-step:last-child {
-  padding-bottom: 0;
-}
 
 .step-marker {
   display: flex;
@@ -172,12 +167,6 @@
   border: 2px solid var(--color-primary);
 }
 
-.step-icon img {
-  width: 28px;
-  height: 28px;
-  filter: brightness(0) invert(1);
-}
-
 .step-line {
   position: absolute;
   top: 60px;
@@ -189,11 +178,6 @@
 }
 
 .timeline-step:last-child .step-line { display: none; }
-
-.step-content {
-  flex: 1;
-  padding-top: 10px;
-}
 
 .step-card {
   background: var(--color-surface);
@@ -238,14 +222,6 @@
   display: block;
 }
 
-.step-desc {
-  font-size: 1rem;
-  color: #d1d5db;
-  line-height: 1.6;
-  margin: 0;
-}
-
-/* Nouveau style pour le bouton "Cliquez pour voir plus" */
 .read-more-link {
   background: none;
   border: none;
@@ -260,8 +236,93 @@
   transition: var(--transition-fast);
 }
 
-.read-more-link:hover {
+/* ================================
+   PAGE CONTACT (VERSION OPTIMISEE)
+   ================================ */
+.contact-page {
+  padding-bottom: 120px;
+}
+
+.contact-wrapper {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 0 15px;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 35px;
+  border-radius: 24px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-group-custom {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.form-group-custom label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-textMuted);
+  margin-left: 15px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 14px 22px;
+  border-radius: 50px;
+  border: 1px solid var(--color-border);
+  background: rgba(0, 0, 0, 0.25);
   color: var(--color-text);
+  font-size: 1rem;
+  font-family: inherit;
+  transition: var(--transition-normal);
+  outline: none;
+  box-sizing: border-box;
+}
+
+.textarea-input {
+  border-radius: 20px;
+  resize: none;
+  min-height: 120px;
+}
+
+.form-input:focus {
+  border-color: var(--color-primary);
+  background: rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+}
+
+.submit-btn {
+  background: var(--color-primary);
+  color: var(--color-background);
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 15px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  margin-top: 15px;
+  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+  transition: var(--transition-normal);
+}
+
+.submit-btn:hover:not(.submitting) {
+  box-shadow: 0 10px 25px rgba(16, 185, 129, 0.5);
+  transform: translateY(-2px);
+}
+
+.submit-btn.submitting {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 /* ================================
@@ -272,112 +333,15 @@
   .section-title { font-size: 2rem; }
   .step-marker { min-width: 40px; }
   .step-icon { width: 40px; height: 40px; }
-  .step-icon img { width: 18px; height: 18px; }
   .step-line { top: 40px; left: 19px; }
-  .step-card h3 { font-size: 1.2rem; }
+  .step-card { padding: 20px; }
   .timeline-step { gap: 15px; }
 
   .home-page { padding: 80px 5% 60px; }
   .profile-img { width: 180px; height: 180px; }
   .home-title { font-size: 2.2rem; }
   .highlight { font-size: 2.6rem; }
-  .home-subtitle { font-size: 1.05rem; line-height: 1.6; }
   .cta-button { padding: 14px 30px; font-size: 1rem; }
-}
 
-/* ================================
-   PAGE CONTACT (FORMULAIRE)
-   ================================ */
-.contact-page {
-  padding-bottom: 120px;
-}
-
-.contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  padding: 40px;
-}
-
-.form-group-custom {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.form-group-custom label {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--color-textMuted);
-  letter-spacing: 0.5px;
-}
-
-.form-input {
-  width: 100%;
-  padding: 16px;
-  border-radius: 12px;
-  border: 1px solid var(--color-border);
-  background: rgba(0, 0, 0, 0.3);
-  color: var(--color-text);
-  font-size: 1rem;
-  font-family: inherit;
-  transition: var(--transition-normal);
-  outline: none;
-}
-
-.form-input::placeholder {
-  color: rgba(163, 163, 163, 0.4);
-}
-
-/* Effet de focus professionnel */
-.form-input:focus {
-  border-color: var(--color-primary);
-  background: rgba(0, 0, 0, 0.5);
-  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
-}
-
-.textarea-input {
-  resize: vertical;
-  min-height: 120px;
-}
-
-.submit-btn {
-  background: var(--color-primary);
-  color: var(--color-background);
-  font-weight: 700;
-  font-size: 1.1rem;
-  padding: 16px;
-  border-radius: 12px;
-  border: none;
-  cursor: pointer;
-  margin-top: 10px;
-  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
-  transition: var(--transition-normal);
-  letter-spacing: 0.5px;
-}
-
-.submit-btn:hover:not(.submitting) {
-  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.5);
-  transform: translateY(-2px);
-}
-
-.submit-btn.submitting {
-  opacity: 0.7;
-  cursor: not-allowed;
-  box-shadow: none;
-}
-
-/* Responsive Formulaire Contact */
-@media (max-width: 768px) {
-  .contact-form {
-    padding: 25px 20px;
-    gap: 20px;
-  }
-  .form-input {
-    padding: 14px;
-  }
-  .submit-btn {
-    padding: 14px;
-    font-size: 1rem;
-  }
+  .contact-form { padding: 25px 20px; }
 }
