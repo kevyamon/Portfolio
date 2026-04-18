@@ -1,21 +1,22 @@
-// kevyamon/portfolio/src/App.jsx
+//kevyamon/portfolio/src/App.jsx
 import { useState } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import './App.css';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
-import ScrollToTopButton from './components/ScrollToTopButton'; // Ton bouton manuel
-import ScrollToTop from './components/ScrollToTop'; // <-- LE NOUVEAU COMPOSANT AUTO
+import ScrollToTopButton from './components/ScrollToTopButton';
+import ScrollToTop from './components/ScrollToTop';
 import PageTransition from './components/PageTransition';
 import { Toaster } from 'react-hot-toast';
 import { useLongPress } from './hooks/useLongPress';
 import LoginModal from './components/LoginModal';
+import { useUI } from './context/UIContext';
 
-// Import de l'image pour être sûr du chemin
+// Import de l'image pour etre sur du chemin
 import backgroundImage from './assets/background.png';
 
-// --- Importer les composants Admin ---
+// Importer les composants Admin
 import ProtectedRoute from './components/ProtectedRoute'; 
 import AdminLayout from './components/AdminLayout'; 
 import DashboardHome from './pages/admin/DashboardHome'; 
@@ -31,12 +32,11 @@ import Travaux from './pages/Travaux';
 import Contact from './pages/Contact';
 
 function App() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  // L'etat de la Sidebar est desormais lu depuis notre contexte global
+  const { isSidebarOpen } = useUI();
+  
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const location = useLocation(); 
-
-  const toggleSidebar = () => setIsSidebarOpen(prev => !prev);
-  const closeSidebar = () => setIsSidebarOpen(false);
 
   const longPressCallback = () => {
     setIsLoginModalOpen(true);
@@ -46,7 +46,7 @@ function App() {
   return (
     <div className="app-container">
       
-      {/* --- LE FOND D'ÉCRAN FIXE --- */}
+      {/* LE FOND D'ECRAN FIXE */}
       <div 
         style={{
           position: 'fixed',
@@ -65,7 +65,7 @@ function App() {
 
       <Toaster position="top-center" reverseOrder={false} />
       
-      {/* Ce composant gère le scroll automatique à chaque changement de page */}
+      {/* Ce composant gere le scroll automatique a chaque changement de page */}
       <ScrollToTop />
 
       <LoginModal 
@@ -73,9 +73,10 @@ function App() {
         onClose={() => setIsLoginModalOpen(false)} 
       />
 
-      <Header onToggleSidebar={toggleSidebar} isOpen={isSidebarOpen} />
+      {/* Le Header et la Sidebar se gèrent tous seuls via le UIContext */}
+      <Header />
       <AnimatePresence>
-        {isSidebarOpen && <Sidebar onClose={closeSidebar} />}
+        {isSidebarOpen && <Sidebar />}
       </AnimatePresence>
       
       {/* Ton bouton manuel pour remonter */}
@@ -83,7 +84,7 @@ function App() {
 
       <Routes location={location} key={location.pathname}>
         
-        {/* --- Routes du Dashboard Admin --- */}
+        {/* Routes du Dashboard Admin */}
         <Route element={<ProtectedRoute />}>
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<DashboardHome />} />
@@ -94,7 +95,7 @@ function App() {
           </Route>
         </Route>
 
-        {/* --- Routes Publiques (Site Principal) --- */}
+        {/* Routes Publiques (Site Principal) */}
         <Route 
           path="/" 
           element={

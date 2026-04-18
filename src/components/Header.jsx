@@ -1,13 +1,16 @@
+//src/components/Header.jsx
+import { useUI } from '../context/UIContext';
 import './Header.css';
 
-// 1. Je récupère la nouvelle propriété 'isOpen'
-function Header({ onToggleSidebar, isOpen }) {
+function Header() {
+  // Le composant est autonome et lit l'état global
+  const { isSidebarOpen, toggleSidebar } = useUI();
+
   return (
     <header className="header">
-      {/* 2. J'ajoute la classe 'open' si la sidebar est ouverte */}
       <div 
-        className={`hamburger ${isOpen ? 'open' : ''}`} 
-        onClick={onToggleSidebar}
+        className={`hamburger ${isSidebarOpen ? 'open' : ''}`} 
+        onClick={toggleSidebar}
       >
         <span className="bar"></span>
         <span className="bar"></span>
