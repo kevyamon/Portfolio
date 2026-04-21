@@ -9,8 +9,27 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* DÉSACTIVER la zone bleue/grise au clic sur mobile */
-  -webkit-tap-highlight-color: transparent; 
+  /* Suppression globale forcée de la zone de tap */
+  -webkit-tap-highlight-color: transparent !important;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
+}
+
+/* LA SOLUTION GLOBALE : Cibler explicitement tous les éléments interactifs.
+  Les navigateurs mobiles ne pourront plus outrepasser cette règle.
+*/
+a, button, input, select, textarea, [role="button"], [tabindex] {
+  -webkit-tap-highlight-color: transparent !important;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
+  outline: none !important; /* Supprime aussi la bordure de focus du système */
+  touch-action: manipulation; /* Optimise la vitesse du clic (supprime le délai de 300ms) */
+}
+
+/* Verrouillage supplémentaire pour les états de focus/clic actif */
+a:focus, a:active, 
+button:focus, button:active, 
+input:focus, textarea:focus {
+  outline: none !important;
+  background-color: transparent; /* Empêche certains navigateurs de griser le fond au clic */
 }
 
 html {
@@ -26,7 +45,6 @@ body {
   color: #ffffff;
   background-color: transparent;
   /* CORRECTION IPHONE : On supprime overflow-x: hidden ici */
-  /* On supprime aussi position: relative qui buggait avec la sidebar sur iOS */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -37,9 +55,4 @@ body {
   /* CORRECTION IPHONE : On gère le dépassement horizontal au niveau du conteneur principal */
   overflow-x: hidden;
   position: relative;
-}
-
-/* Optimisation de la réactivité globale des boutons */
-button, a {
-  touch-action: manipulation; /* Supprime le délai de 300ms au toucher sur mobile */
 }
