@@ -1,4 +1,3 @@
-/* src/styles/pages.css */
 
 /* ================================
    STYLES GENERAUX POUR TOUTES LES PAGES
@@ -52,7 +51,8 @@
   align-items: center;
   padding: 60px 5% 40px; 
   position: relative;
-  background: var(--color-background);
+  /* CORRECTION ICI : Remplacement de var(--color-background) par transparent */
+  background: transparent;
   overflow: hidden;
 }
 
