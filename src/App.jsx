@@ -1,4 +1,4 @@
-//kevyamon/portfolio/src/App.jsx
+//src/App.jsx
 import { useState } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
@@ -12,6 +12,9 @@ import { Toaster } from 'react-hot-toast';
 import { useLongPress } from './hooks/useLongPress';
 import LoginModal from './components/LoginModal';
 import { useUI } from './context/UIContext';
+
+// Import du Loader de reveil serveur
+import SandglassLoader from './components/SandglassLoader';
 
 // Import de l'image pour etre sur du chemin
 import backgroundImage from './assets/background.png';
@@ -32,9 +35,8 @@ import Travaux from './pages/Travaux';
 import Contact from './pages/Contact';
 
 function App() {
-  // L'etat de la Sidebar est desormais lu depuis notre contexte global
   const { isSidebarOpen } = useUI();
-  
+  const [isAppReady, setIsAppReady] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const location = useLocation(); 
 
@@ -45,8 +47,7 @@ function App() {
 
   return (
     <div className="app-container">
-      
-      {/* LE FOND D'ECRAN FIXE */}
+      {/* LE FOND D'ECRAN FIXE - Toujours present pour la continuite visuelle */}
       <div 
         style={{
           position: 'fixed',
@@ -64,72 +65,74 @@ function App() {
       />
 
       <Toaster position="top-center" reverseOrder={false} />
-      
-      {/* Ce composant gere le scroll automatique a chaque changement de page */}
-      <ScrollToTop />
 
-      <LoginModal 
-        isOpen={isLoginModalOpen} 
-        onClose={() => setIsLoginModalOpen(false)} 
-      />
+      {/* GESTION DU LOADER INITIAL */}
+      {!isAppReady ? (
+        <SandglassLoader onFinished={() => setIsAppReady(true)} />
+      ) : (
+        <>
+          <ScrollToTop />
 
-      {/* Le Header et la Sidebar se gèrent tous seuls via le UIContext */}
-      <Header />
-      <AnimatePresence>
-        {isSidebarOpen && <Sidebar />}
-      </AnimatePresence>
-      
-      {/* Ton bouton manuel pour remonter */}
-      <ScrollToTopButton longPressEvents={longPressEvents} />
+          <LoginModal 
+            isOpen={isLoginModalOpen} 
+            onClose={() => setIsLoginModalOpen(false)} 
+          />
 
-      <Routes location={location} key={location.pathname}>
-        
-        {/* Routes du Dashboard Admin */}
-        <Route element={<ProtectedRoute />}>
-          <Route path="/admin" element={<AdminLayout />}>
-            <Route index element={<DashboardHome />} />
-            <Route path="profile" element={<ManageProfile />} />
-            <Route path="parcours" element={<ManageParcours />} />
-            <Route path="travaux" element={<ManageTravaux />} />
-            <Route path="messages" element={<ManageMessages />} />
-          </Route>
-        </Route>
+          <Header />
+          <AnimatePresence>
+            {isSidebarOpen && <Sidebar />}
+          </AnimatePresence>
+          
+          <ScrollToTopButton longPressEvents={longPressEvents} />
 
-        {/* Routes Publiques (Site Principal) */}
-        <Route 
-          path="/" 
-          element={
-            <PageTransition>
-              <Home />
-            </PageTransition>
-          } 
-        />
-        <Route 
-          path="/parcours" 
-          element={
-            <PageTransition>
-              <Parcours />
-            </PageTransition>
-          } 
-        />
-        <Route 
-          path="/travaux" 
-          element={
-            <PageTransition>
-              <Travaux />
-            </PageTransition>
-          } 
-        />
-        <Route 
-          path="/contact" 
-          element={
-            <PageTransition>
-              <Contact />
-            </PageTransition>
-          } 
-        />
+          <Routes location={location} key={location.pathname}>
+            {/* Routes du Dashboard Admin */}
+            <Route element={<ProtectedRoute />}>
+              <Route path="/admin" element={<AdminLayout />}>
+                <Route index element={<DashboardHome />} />
+                <Route path="profile" element={<ManageProfile />} />
+                <Route path="parcours" element={<ManageParcours />} />
+                <Route path="travaux" element={<ManageTravaux />} />
+                <Route path="messages" element={<ManageMessages />} />
+              </Route>
+            </Route>
 
-      </Routes>
+            {/* Routes Publiques (Site Principal) */}
+            <Route 
+              path="/" 
+              element={
+                <PageTransition>
+                  <Home />
+                </PageTransition>
+              } 
+            />
+            <Route 
+              path="/parcours" 
+              element={
+                <PageTransition>
+                  <Parcours />
+                </PageTransition>
+              } 
+            />
+            <Route 
+              path="/travaux" 
+              element={
+                <PageTransition>
+                  <Travaux />
+                </PageTransition>
+              } 
+            />
+            <Route 
+              path="/contact" 
+              element={
+                <PageTransition>
+                  <Contact />
+                </PageTransition>
+              } 
+            />
+          </Routes>
+        </>
+      )}
     </div>
   );
 }

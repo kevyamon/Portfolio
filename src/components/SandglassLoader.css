@@ -1,0 +1,129 @@
+/* //src/components/SandglassLoader.css */
+.sandglass-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-background);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.sandglass-container {
+  width: 80px;
+  height: 120px;
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.sandglass-svg {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: var(--color-primary);
+  stroke-width: 2;
+}
+
+.sand-top {
+  fill: var(--color-primary);
+  transition: transform 1s linear;
+}
+
+.sand-bottom {
+  fill: var(--color-primary);
+  transform-origin: bottom;
+  transform: scaleY(0);
+  transition: transform 1s linear;
+}
+
+.is-loading .sand-top {
+  animation: drain 120s linear forwards;
+}
+
+.is-loading .sand-bottom {
+  animation: fill 120s linear forwards;
+}
+
+.is-success .sand-top {
+  transform: scaleY(0) !important;
+  transition: transform 0.3s ease-out !important;
+  animation: none !important;
+}
+
+.is-success .sand-bottom {
+  transform: scaleY(1) !important;
+  transition: transform 0.3s ease-out !important;
+  animation: none !important;
+}
+
+@keyframes drain {
+  from { transform: scaleY(1); }
+  to { transform: scaleY(0.1); }
+}
+
+@keyframes fill {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(0.9); }
+}
+
+.quote-container {
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.quote-text {
+  color: var(--color-textMuted);
+  font-size: 1.1rem;
+  font-style: italic;
+  animation: fadeInOut 4s infinite;
+}
+
+.success-text {
+  color: var(--color-primary);
+  font-weight: bold;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.sad-icon-text {
+  font-size: 4rem;
+  color: var(--color-error);
+  font-weight: bold;
+  font-family: monospace;
+}
+
+.retry-button {
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: opacity var(--transition-fast);
+}
+
+.retry-button:hover {
+  opacity: 0.8;
+}
+
+@keyframes fadeInOut {
+  0%, 100% { opacity: 0; transform: translateY(10px); }
+  10%, 90% { opacity: 1; transform: translateY(0); }
+}
