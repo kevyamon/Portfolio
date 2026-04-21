@@ -9,11 +9,14 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  /* DÉSACTIVER la zone bleue/grise au clic sur mobile */
+  -webkit-tap-highlight-color: transparent; 
 }
 
 html {
-  background-color: #000000; /* Fond noir de sécurité */
+  background-color: #000000;
   height: 100%;
+  scroll-behavior: smooth; /* Fluidité du défilement */
 }
 
 body {
@@ -21,12 +24,22 @@ body {
   padding: 0;
   min-height: 100vh;
   color: #ffffff;
-  overflow-x: hidden;
-  position: relative;
-  background-color: transparent; /* Important pour voir l'image derrière */
+  background-color: transparent;
+  /* CORRECTION IPHONE : On supprime overflow-x: hidden ici */
+  /* On supprime aussi position: relative qui buggait avec la sidebar sur iOS */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 #root {
   min-height: 100vh;
   width: 100%;
+  /* CORRECTION IPHONE : On gère le dépassement horizontal au niveau du conteneur principal */
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Optimisation de la réactivité globale des boutons */
+button, a {
+  touch-action: manipulation; /* Supprime le délai de 300ms au toucher sur mobile */
 }

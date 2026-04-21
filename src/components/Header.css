@@ -1,35 +1,42 @@
+/* src/components/Header.css */
 .header {
-  position: fixed; /* Fixé en haut de l'écran */
+  position: fixed;
   top: 0;
   right: 0;
-  width: 100%; /* Largeur pleine pour aligner à droite */
+  width: 100%;
   display: flex;
-  justify-content: flex-end; /* Aligne le hamburger à droite */
-  padding: 20px; /* Espacement autour */
-  z-index: 1000; /* Au-dessus des autres éléments */
+  justify-content: flex-end;
+  padding: 20px;
+  z-index: 1000;
+  /* Optimisation du rendu pour éviter les lags au scroll */
+  will-change: transform;
 }
 
 .hamburger {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 30px; /* Largeur de l'icône */
-  height: 24px; /* Hauteur de l'icône */
-  cursor: pointer; /* Indique qu'il est cliquable */
-  z-index: 1000; /* Reste au-dessus du contenu */
+  width: 30px;
+  height: 24px;
+  cursor: pointer;
+  z-index: 1000;
+  /* Empêche la sélection de l'icône sur double clic */
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .bar {
   width: 100%;
-  height: 4px; /* Épaisseur des barres */
-  background-color: #ffffff; /* Blanc pour visibilité sur fond sombre */
-  border-radius: 2px; /* Coins arrondis subtils */
-  transition: all 0.3s ease; /* Animation subtile */
+  height: 4px;
+  background-color: #ffffff;
+  border-radius: 2px;
+  /* Optimisation de la performance de l'animation */
+  /* On cible uniquement opacity et transform, jamais la largeur ou la hauteur */
+  transition: opacity 0.3s ease, transform 0.3s ease; 
   transform-origin: center;
+  will-change: opacity, transform;
 }
 
-/* NOUVEAU : Cacher le hamburger quand la sidebar est ouverte */
-/* Le "X" sera géré par la sidebar elle-même */
 .hamburger.open .bar {
   opacity: 0;
 }

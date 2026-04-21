@@ -2,38 +2,96 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     
     <meta name="google-site-verification" content="VkMZZSBz1f01uHTD53-zSEnRBsylW840cGZzxo2-i3k" />
     
-    <title>Kevinamon | Portfolio</title>
-    <meta name="description" content="Découvrez le portfolio de Kevinamon (Kevy Amon), étudiant en I.A.C. spécialisé en contrôle qualité, analyse sensorielle et sécurité alimentaire." />
-    <meta name="keywords" content="Kevinamon, Kevy Amon, kevyamon, Portfolio, Controle Qualite, Analyse Sensorielle, I.A.C, Securite Alimentaire, Projets" />
-    <meta name="author" content="Kevinamon" />
+    <title>Kevin Amon (Kevy) | Fondateur de KevyLLC & Expert I.A.C</title>
+    
+    <meta name="description" content="Découvrez le portfolio de Kevin Amon (Kevy), fondateur de KevyLLC et étudiant en I.A.C. au Groupe LOKO. Expert en contrôle qualité et solutions digitales." />
+    <meta name="keywords" content="Kevin Amon, KevyLLC, Kevinamon, Kevy, Groupe LOKO, I.A.C Abidjan, Controle Qualite, Securite Alimentaire, Methode CSCSM" />
+    <meta name="author" content="Kevin Amon" />
     <meta name="robots" content="index, follow" />
-    <meta name="theme-color" content="#0a0a0a" />
+    <meta name="theme-color" content="#000000" />
     
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/logo512.png" />
+    <link rel="apple-touch-icon" href="/logo512.png" />
+    
     <link rel="manifest" href="/manifest.json" />
 
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://kevinamon-iacc.onrender.com/" />
-    <meta property="og:title" content="Kevinamon | Portfolio" />
-    <meta property="og:description" content="Découvrez le parcours et les accomplissements de Kevinamon en contrôle qualité et sécurité alimentaire." />
+    <meta property="og:title" content="Kevin Amon | Portfolio & Accomplissements" />
+    <meta property="og:description" content="Découvrez le parcours de Kevin Amon, fondateur de KevyLLC." />
     <meta property="og:image" content="https://kevinamon-iacc.onrender.com/og-image.jpg" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://kevinamon-iacc.onrender.com/" />
-    <meta name="twitter:title" content="Kevinamon | Portfolio" />
-    <meta name="twitter:description" content="Découvrez le parcours et les accomplissements de Kevinamon." />
     <meta name="twitter:image" content="https://kevinamon-iacc.onrender.com/og-image.jpg" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://kevinamon-iacc.onrender.com/#person",
+          "name": "Kevin Amon",
+          "alternateName": "Kevy",
+          "url": "https://kevinamon-iacc.onrender.com/",
+          "image": "https://kevinamon-iacc.onrender.com/photo-profil.jpg",
+          "jobTitle": "Fondateur de KevyLLC",
+          "worksFor": {
+            "@type": "Organization",
+            "name": "KevyLLC",
+            "logo": "https://kevinamon-iacc.onrender.com/logo512.png"
+          },
+          "alumniOf": {
+            "@type": "CollegeOrUniversity",
+            "name": "Groupe LOKO",
+            "location": {
+              "@type": "Place",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Abidjan",
+                "addressCountry": "CI"
+              }
+            }
+          },
+          "description": "Étudiant en Industrie Agroalimentaire et Chimique (IACC) et Architecte de solutions digitales via KevyLLC.",
+          "sameAs": [
+            "https://www.youtube.com/@KevyLLC"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://kevinamon-iacc.onrender.com/#website",
+          "url": "https://kevinamon-iacc.onrender.com/",
+          "name": "Kevin Amon Portfolio",
+          "publisher": {
+            "@id": "https://kevinamon-iacc.onrender.com/#person"
+          }
+        }
+      ]
+    }
+    </script>
   </head>
-  <body>
+  <body oncontextmenu="return false;">
     <noscript>Vous devez activer le JavaScript pour faire fonctionner cette application.</noscript>
     <div id="root"></div>
     <script type="module" src="/src/index.jsx"></script>
+
+    <script>
+      document.onkeydown = function(e) {
+        if(event.keyCode == 123) { return false; } 
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { return false; }
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) { return false; }
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { return false; }
+        if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { return false; }
+      }
+    </script>
   </body>
 </html>
