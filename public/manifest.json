@@ -1,12 +1,18 @@
 {
   "short_name": "Kevy",
-  "name": "Portfolio de Kevy Amon",
+  "name": "Kevin Amon | Portfolio pro",
   "icons": [
     {
+      "src": "/logo512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
       "src": "/favicon.svg",
-      "sizes": "192x192 512x512",
+      "sizes": "any",
       "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "purpose": "maskable"
     }
   ],
   "start_url": "/",
