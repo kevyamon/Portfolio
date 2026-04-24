@@ -1,4 +1,3 @@
-//src/App.jsx
 import { useState } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
@@ -66,73 +65,87 @@ function App() {
 
       <Toaster position="top-center" reverseOrder={false} />
 
-      {/* GESTION DU LOADER INITIAL */}
-      {!isAppReady ? (
+      {/* GESTION DU LOADER INITIAL - OPTIMISÉ POUR LE SEO */}
+      {/* Le loader s'affiche au-dessus tant que l'app n'est pas prête */}
+      {!isAppReady && (
         <SandglassLoader onFinished={() => setIsAppReady(true)} />
-      ) : (
-        <>
-          <ScrollToTop />
-
-          <LoginModal 
-            isOpen={isLoginModalOpen} 
-            onClose={() => setIsLoginModalOpen(false)} 
-          />
-
-          <Header />
-          <AnimatePresence>
-            {isSidebarOpen && <Sidebar />}
-          </AnimatePresence>
-          
-          <ScrollToTopButton longPressEvents={longPressEvents} />
-
-          <Routes location={location} key={location.pathname}>
-            {/* Routes du Dashboard Admin */}
-            <Route element={<ProtectedRoute />}>
-              <Route path="/admin" element={<AdminLayout />}>
-                <Route index element={<DashboardHome />} />
-                <Route path="profile" element={<ManageProfile />} />
-                <Route path="parcours" element={<ManageParcours />} />
-                <Route path="travaux" element={<ManageTravaux />} />
-                <Route path="messages" element={<ManageMessages />} />
-              </Route>
-            </Route>
-
-            {/* Routes Publiques (Site Principal) */}
-            <Route 
-              path="/" 
-              element={
-                <PageTransition>
-                  <Home />
-                </PageTransition>
-              } 
-            />
-            <Route 
-              path="/parcours" 
-              element={
-                <PageTransition>
-                  <Parcours />
-                </PageTransition>
-              } 
-            />
-            <Route 
-              path="/travaux" 
-              element={
-                <PageTransition>
-                  <Travaux />
-                </PageTransition>
-              } 
-            />
-            <Route 
-              path="/contact" 
-              element={
-                <PageTransition>
-                  <Contact />
-                </PageTransition>
-              } 
-            />
-          </Routes>
-        </>
       )}
+
+      {/* Le contenu principal est toujours dans le DOM pour Googlebot, 
+          mais caché visuellement à l'utilisateur jusqu'à la fin du chargement */}
+      <div 
+        style={{
+          visibility: isAppReady ? 'visible' : 'hidden',
+          opacity: isAppReady ? 1 : 0,
+          transition: 'opacity 0.5s ease-in-out',
+          pointerEvents: isAppReady ? 'auto' : 'none',
+          position: isAppReady ? 'relative' : 'absolute',
+          width: '100%',
+          height: isAppReady ? 'auto' : '0',
+          overflow: isAppReady ? 'visible' : 'hidden'
+        }}
+      >
+        <ScrollToTop />
+
+        <LoginModal 
+          isOpen={isLoginModalOpen} 
+          onClose={() => setIsLoginModalOpen(false)} 
+        />
+
+        <Header />
+        <AnimatePresence>
+          {isSidebarOpen && <Sidebar />}
+        </AnimatePresence>
+        
+        <ScrollToTopButton longPressEvents={longPressEvents} />
+
+        <Routes location={location} key={location.pathname}>
+          {/* Routes du Dashboard Admin */}
+          <Route element={<ProtectedRoute />}>
+            <Route path="/admin" element={<AdminLayout />}>
+              <Route index element={<DashboardHome />} />
+              <Route path="profile" element={<ManageProfile />} />
+              <Route path="parcours" element={<ManageParcours />} />
+              <Route path="travaux" element={<ManageTravaux />} />
+              <Route path="messages" element={<ManageMessages />} />
+            </Route>
+          </Route>
+
+          {/* Routes Publiques (Site Principal) */}
+          <Route 
+            path="/" 
+            element={
+              <PageTransition>
+                <Home />
+              </PageTransition>
+            } 
+          />
+          <Route 
+            path="/parcours" 
+            element={
+              <PageTransition>
+                <Parcours />
+              </PageTransition>
+            } 
+          />
+          <Route 
+            path="/travaux" 
+            element={
+              <PageTransition>
+                <Travaux />
+              </PageTransition>
+            } 
+          />
+          <Route 
+            path="/contact" 
+            element={
+              <PageTransition>
+                <Contact />
+              </PageTransition>
+            } 
+          />
+        </Routes>
+      </div>
     </div>
   );
 }
