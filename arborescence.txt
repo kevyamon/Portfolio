@@ -1,0 +1,80 @@
+Portfolio
+├── README.md
+├── arborescence.txt
+├── index.html
+├── package-lock.json
+├── package.json
+├── public
+│   ├── favicon.svg
+│   ├── logo512.png
+│   ├── manifest.json
+│   ├── og-image.jpg
+│   ├── photo-profil.jpg
+│   ├── robots.txt
+│   └── sitemap.xml
+├── src
+│   ├── App.css
+│   ├── App.jsx
+│   ├── api
+│   ├── components
+│   │   ├── AdminLayout.jsx
+│   │   ├── AdminNav.css
+│   │   ├── AdminNav.jsx
+│   │   ├── ConfirmationModal.css
+│   │   ├── ConfirmationModal.jsx
+│   │   ├── ContentModal.css
+│   │   ├── ContentModal.jsx
+│   │   ├── Header.css
+│   │   ├── Header.jsx
+│   │   ├── LoginModal.css
+│   │   ├── LoginModal.jsx
+│   │   ├── MenuHint.css
+│   │   ├── MenuHint.jsx
+│   │   ├── PageTransition.jsx
+│   │   ├── PageWipe.css
+│   │   ├── PageWipe.jsx
+│   │   ├── ProtectedRoute.jsx
+│   │   ├── SandglassLoader.css
+│   │   ├── SandglassLoader.jsx
+│   │   ├── ScrollToTop.jsx
+│   │   ├── ScrollToTopButton.css
+│   │   ├── ScrollToTopButton.jsx
+│   │   ├── Sidebar.css
+│   │   ├── Sidebar.jsx
+│   │   └── admin
+│   │       ├── AdminForms.css
+│   │       ├── IconSelector.jsx
+│   │       ├── LoadingSpinner.css
+│   │       ├── LoadingSpinner.jsx
+│   │       ├── ParcoursForm.jsx
+│   │       └── ProjectForm.jsx
+│   ├── context
+│   │   ├── SocketContext.jsx
+│   │   └── UIContext.jsx
+│   ├── hooks
+│   │   ├── useLongPress.js
+│   │   └── useServerWakeup.js
+│   ├── index.css
+│   ├── index.jsx
+│   ├── pages
+│   │   ├── Contact.jsx
+│   │   ├── Home.jsx
+│   │   ├── Parcours.jsx
+│   │   ├── Travaux.jsx
+│   │   └── admin
+│   │       ├── Dashboard.css
+│   │       ├── DashboardHome.jsx
+│   │       ├── ManageMessages.jsx
+│   │       ├── ManageParcours.jsx
+│   │       ├── ManageProfile.jsx
+│   │       ├── ManageTravaux.jsx
+│   │       ├── Messages.css
+│   │       ├── Parcours.css
+│   │       └── Travaux.css
+│   ├── styles
+│   │   ├── pages.css
+│   │   └── theme.js
+│   └── utils
+│       └── iconLibrary.jsx
+├── tsconfig.json
+└── vite.config.js

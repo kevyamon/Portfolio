@@ -12,10 +12,10 @@ import { useLongPress } from './hooks/useLongPress';
 import LoginModal from './components/LoginModal';
 import { useUI } from './context/UIContext';
 
-// Import du Loader de reveil serveur
+// Import du Loader de réveil serveur
 import SandglassLoader from './components/SandglassLoader';
 
-// Import de l'image pour etre sur du chemin
+// Import de l'image pour être sûr du chemin
 import backgroundImage from './assets/background.png';
 
 // Importer les composants Admin
@@ -46,7 +46,7 @@ function App() {
 
   return (
     <div className="app-container">
-      {/* LE FOND D'ECRAN FIXE - Toujours present pour la continuite visuelle */}
+      {/* LE FOND D'ÉCRAN FIXE - Toujours présent pour la continuité visuelle */}
       <div 
         style={{
           position: 'fixed',
@@ -65,24 +65,24 @@ function App() {
 
       <Toaster position="top-center" reverseOrder={false} />
 
-      {/* GESTION DU LOADER INITIAL - OPTIMISÉ POUR LE SEO */}
-      {/* Le loader s'affiche au-dessus tant que l'app n'est pas prête */}
+      {/* GESTION DU LOADER INITIAL */}
+      {/* On garde le loader mais on ne cache plus le contenu HTML pour le SEO */}
       {!isAppReady && (
         <SandglassLoader onFinished={() => setIsAppReady(true)} />
       )}
 
-      {/* Le contenu principal est toujours dans le DOM pour Googlebot, 
-          mais caché visuellement à l'utilisateur jusqu'à la fin du chargement */}
+      {/* OPTIMISATION SEO : Le contenu est maintenant toujours présent dans le DOM.
+          On utilise uniquement l'opacité pour la transition visuelle.
+          Le contenu est lisible par Googlebot même si isAppReady est faux.
+      */}
       <div 
         style={{
-          visibility: isAppReady ? 'visible' : 'hidden',
           opacity: isAppReady ? 1 : 0,
           transition: 'opacity 0.5s ease-in-out',
           pointerEvents: isAppReady ? 'auto' : 'none',
-          position: isAppReady ? 'relative' : 'absolute',
+          position: 'relative',
           width: '100%',
-          height: isAppReady ? 'auto' : '0',
-          overflow: isAppReady ? 'visible' : 'hidden'
+          minHeight: '100vh'
         }}
       >
         <ScrollToTop />
