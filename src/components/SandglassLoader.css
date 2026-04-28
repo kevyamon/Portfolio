@@ -14,60 +14,103 @@
 }
 
 .sandglass-container {
-  width: 80px;
-  height: 120px;
+  width: 100px;
+  height: 160px;
   position: relative;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
+  filter: drop-shadow(0 0 15px rgba(16, 185, 129, 0.2));
 }
 
 .sandglass-svg {
   width: 100%;
   height: 100%;
-  fill: none;
+  overflow: visible;
+}
+
+.sandglass-frame {
   stroke: var(--color-primary);
-  stroke-width: 2;
+  stroke-width: 4;
+  stroke-linecap: round;
+  fill: none;
+}
+
+.sandglass-glass {
+  stroke: rgba(255, 255, 255, 0.1);
+  stroke-width: 1.5;
+  fill: rgba(255, 255, 255, 0.03);
 }
 
 .sand-top {
   fill: var(--color-primary);
-  transition: transform 1s linear;
+  transform-origin: 50% 75px; /* Origine au col du sablier */
+  transition: transform 1s ease;
 }
 
 .sand-bottom {
   fill: var(--color-primary);
-  transform-origin: bottom;
+  transform-origin: 50% 140px; /* Origine au fond du sablier */
   transform: scaleY(0);
-  transition: transform 1s linear;
+  transition: transform 1s ease;
 }
 
+.sand-stream {
+  stroke: var(--color-primary);
+  stroke-width: 2;
+  stroke-dasharray: 4 8;
+  opacity: 0;
+  stroke-linecap: round;
+}
+
+.glass-highlight {
+  stroke: rgba(255, 255, 255, 0.4);
+  stroke-width: 2;
+  stroke-linecap: round;
+  fill: none;
+}
+
+/* Animations en mode Loading */
 .is-loading .sand-top {
-  animation: drain 120s linear forwards;
+  animation: drain-realistic 120s linear forwards;
 }
 
 .is-loading .sand-bottom {
-  animation: fill 120s linear forwards;
+  animation: fill-realistic 120s linear forwards;
 }
 
+.is-loading .sand-stream {
+  opacity: 1;
+  animation: stream-flow 1s linear infinite;
+}
+
+@keyframes drain-realistic {
+  0% { transform: scaleY(1); }
+  100% { transform: scaleY(0); }
+}
+
+@keyframes fill-realistic {
+  0% { transform: scaleY(0); }
+  100% { transform: scaleY(1); }
+}
+
+@keyframes stream-flow {
+  0% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -12; }
+}
+
+/* Transitions lors du succes */
 .is-success .sand-top {
   transform: scaleY(0) !important;
-  transition: transform 0.3s ease-out !important;
   animation: none !important;
 }
 
 .is-success .sand-bottom {
   transform: scaleY(1) !important;
-  transition: transform 0.3s ease-out !important;
   animation: none !important;
 }
 
-@keyframes drain {
-  from { transform: scaleY(1); }
-  to { transform: scaleY(0.1); }
-}
-
-@keyframes fill {
-  from { transform: scaleY(0); }
-  to { transform: scaleY(0.9); }
+.is-success .sand-stream {
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .quote-container {

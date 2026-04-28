@@ -75,7 +75,7 @@ function Parcours() {
           whileInView="visible" 
           viewport={{ once: true, amount: 0.1 }}
         >
-          {items.length === 0 && <p style={{ color: 'var(--color-textMuted)' }}>Aucune etape.</p>}
+          {items.length === 0 && <p style={{ color: 'var(--color-textMuted)' }}>Aucune étape.</p>}
           
           {items.map((item) => {
             const IconComponent = getIconComponent(item.icon);

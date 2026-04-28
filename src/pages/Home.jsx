@@ -86,8 +86,8 @@ function Home() {
 
   const titleLine1 = profile?.titleLine1 || "Bonjour, je suis";
   const titleLine2 = profile?.titleLine2 || "Kevy";
-  const titleLine3 = profile?.titleLine3 || "Etudiant en I.A.C. - Option Controle";
-  const subtitle = profile?.subtitle || "Specialise en controle qualite, analyse sensorielle et securite alimentaire.";
+  const titleLine3 = profile?.titleLine3 || "Étudiant en I.A.C. - Option Contrôle";
+  const subtitle = profile?.subtitle || "Spécialisé en contrôle qualité, analyse sensorielle et sécurité alimentaire.";
   const imageUrl = profile?.imageUrl || "/src/assets/profile.jpg";
 
   return (
