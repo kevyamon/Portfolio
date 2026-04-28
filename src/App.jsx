@@ -15,9 +15,6 @@ import { useUI } from './context/UIContext';
 // Import du Loader de réveil serveur
 import SandglassLoader from './components/SandglassLoader';
 
-// Import de l'image pour être sûr du chemin
-import backgroundImage from './assets/background.png';
-
 // Importer les composants Admin
 import ProtectedRoute from './components/ProtectedRoute'; 
 import AdminLayout from './components/AdminLayout'; 
@@ -55,10 +52,10 @@ function App() {
           right: 0,
           bottom: 0, 
           zIndex: -1,
-          backgroundImage: `url(${backgroundImage})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
+          backgroundColor: 'var(--color-background)',
+          backgroundImage: 'var(--bg-pattern)',
+          backgroundSize: 'var(--bg-pattern-size)',
+          backgroundAttachment: 'fixed',
           pointerEvents: 'none' 
         }}
       />
