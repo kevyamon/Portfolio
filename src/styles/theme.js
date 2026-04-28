@@ -12,13 +12,9 @@ const theme = {
   },
   patterns: {
     background: `
-      radial-gradient(circle at 2px 2px, rgba(255, 255, 255, 0.04) 1px, transparent 0),
-      radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.05) 0%, transparent 50%),
-      radial-gradient(circle at 100% 100%, rgba(16, 185, 129, 0.03) 0%, transparent 50%),
-      linear-gradient(to right, rgba(255, 255, 255, 0.01) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255, 255, 255, 0.01) 1px, transparent 1px)
+      radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.03) 1px, transparent 0)
     `,
-    backgroundSize: '32px 32px, 100% 100%, 100% 100%, 128px 128px, 128px 128px'
+    backgroundSize: '40px 40px'
   },
   transitions: {
     fast: '0.2s ease-in-out',

@@ -1,0 +1,132 @@
+.animated-bg-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-color: var(--color-background);
+  overflow: hidden;
+  perspective: 1000px;
+}
+
+/* Grille de fond */
+.bg-grid-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: var(--bg-pattern);
+  background-size: var(--bg-pattern-size);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Cubes 3D */
+.cube-container {
+  position: absolute;
+  pointer-events: none;
+}
+
+.cube {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+.face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  background: rgba(16, 185, 129, 0.02);
+  backdrop-filter: blur(1px);
+}
+
+.front  { transform: rotateY(0deg) translateZ(50px); }
+.back   { transform: rotateY(180deg) translateZ(50px); }
+.right  { transform: rotateY(90deg) translateZ(50px); }
+.left   { transform: rotateY(-90deg) translateZ(50px); }
+.top    { transform: rotateX(90deg) translateZ(50px); }
+.bottom { transform: rotateX(-90deg) translateZ(50px); }
+
+/* Ajustement dynamique de la taille pour les faces (basé sur size prop) */
+.cube-container[style*="width: 120px"] .front  { transform: rotateY(0deg) translateZ(60px); }
+.cube-container[style*="width: 120px"] .back   { transform: rotateY(180deg) translateZ(60px); }
+.cube-container[style*="width: 120px"] .right  { transform: rotateY(90deg) translateZ(60px); }
+.cube-container[style*="width: 120px"] .left   { transform: rotateY(-90deg) translateZ(60px); }
+.cube-container[style*="width: 120px"] .top    { transform: rotateX(90deg) translateZ(60px); }
+.cube-container[style*="width: 120px"] .bottom { transform: rotateX(-90deg) translateZ(60px); }
+
+.cube-container[style*="width: 80px"] .front  { transform: rotateY(0deg) translateZ(40px); }
+.cube-container[style*="width: 80px"] .back   { transform: rotateY(180deg) translateZ(40px); }
+.cube-container[style*="width: 80px"] .right  { transform: rotateY(90deg) translateZ(40px); }
+.cube-container[style*="width: 80px"] .left   { transform: rotateY(-90deg) translateZ(40px); }
+.cube-container[style*="width: 80px"] .top    { transform: rotateX(90deg) translateZ(40px); }
+.cube-container[style*="width: 80px"] .bottom { transform: rotateX(-90deg) translateZ(40px); }
+
+.cube-container[style*="width: 150px"] .front  { transform: rotateY(0deg) translateZ(75px); }
+.cube-container[style*="width: 150px"] .back   { transform: rotateY(180deg) translateZ(75px); }
+.cube-container[style*="width: 150px"] .right  { transform: rotateY(90deg) translateZ(75px); }
+.cube-container[style*="width: 150px"] .left   { transform: rotateY(-90deg) translateZ(75px); }
+.cube-container[style*="width: 150px"] .top    { transform: rotateX(90deg) translateZ(75px); }
+.cube-container[style*="width: 150px"] .bottom { transform: rotateX(-90deg) translateZ(75px); }
+
+.cube-container[style*="width: 60px"] .front  { transform: rotateY(0deg) translateZ(30px); }
+.cube-container[style*="width: 60px"] .back   { transform: rotateY(180deg) translateZ(30px); }
+.cube-container[style*="width: 60px"] .right  { transform: rotateY(90deg) translateZ(30px); }
+.cube-container[style*="width: 60px"] .left   { transform: rotateY(-90deg) translateZ(30px); }
+.cube-container[style*="width: 60px"] .top    { transform: rotateX(90deg) translateZ(30px); }
+.cube-container[style*="width: 60px"] .bottom { transform: rotateX(-90deg) translateZ(30px); }
+
+/* Carrés entrelacés */
+.entwined-squares {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 600px;
+  height: 600px;
+  margin-top: -300px;
+  margin-left: -300px;
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+.square {
+  position: absolute;
+  border: 2px solid var(--color-primary);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.s1 { width: 100%; height: 100%; transform: translate(-50%, -50%) rotate(45deg); }
+.s2 { width: 80%; height: 80%; transform: translate(-50%, -50%) rotate(-15deg); }
+.s3 { width: 60%; height: 60%; transform: translate(-50%, -50%) rotate(75deg); }
+
+/* Glow spots */
+.glow-spot {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: -1;
+  opacity: 0.3;
+}
+
+.spot-1 {
+  top: -10%;
+  right: -10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, var(--color-primary), transparent 70%);
+}
+
+.spot-2 {
+  bottom: -10%;
+  left: -10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.4), transparent 70%);
+}

@@ -11,6 +11,7 @@ import { Toaster } from 'react-hot-toast';
 import { useLongPress } from './hooks/useLongPress';
 import LoginModal from './components/LoginModal';
 import { useUI } from './context/UIContext';
+import AnimatedBackground from './components/AnimatedBackground';
 
 // Import du Loader de réveil serveur
 import SandglassLoader from './components/SandglassLoader';
@@ -43,22 +44,8 @@ function App() {
 
   return (
     <div className="app-container">
-      {/* LE FOND D'ÉCRAN FIXE - Toujours présent pour la continuité visuelle */}
-      <div 
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0, 
-          zIndex: -1,
-          backgroundColor: 'var(--color-background)',
-          backgroundImage: 'var(--bg-pattern)',
-          backgroundSize: 'var(--bg-pattern-size)',
-          backgroundAttachment: 'fixed',
-          pointerEvents: 'none' 
-        }}
-      />
+      {/* LE FOND D'ÉCRAN ANIMÉ 3D - Toujours présent pour la continuité visuelle */}
+      <AnimatedBackground />
 
       <Toaster position="top-center" reverseOrder={false} />
 
