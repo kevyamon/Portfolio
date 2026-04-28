@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Allow: /sitemap.xml
 
-Sitemap: https://kevinamon-iacc.onrender.com/sitemap.xml
+Sitemap: https://kevin-amon.vercel.app/sitemap.xml
