@@ -7,10 +7,9 @@
   z-index: -1;
   background-color: var(--color-background);
   overflow: hidden;
-  perspective: 1000px;
 }
 
-/* Grille de fond */
+/* Grille de fond texturée */
 .bg-grid-overlay {
   position: absolute;
   top: 0;
@@ -23,13 +22,24 @@
   pointer-events: none;
 }
 
-/* Cubes 3D */
-.cube-container {
+/* Conteneur de scène 3D avec perspective */
+.cube-scene-container {
   position: absolute;
+  inset: 0;
+  perspective: 1200px;
+  overflow: hidden;
   pointer-events: none;
 }
 
-.cube {
+/* Cubes 3D */
+.cube-container {
+  position: absolute;
+  transform-style: preserve-3d;
+  will-change: transform;
+  pointer-events: none;
+}
+
+.cube-inner {
   width: 100%;
   height: 100%;
   position: relative;
@@ -40,58 +50,36 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  border: 1px solid rgba(16, 185, 129, 0.2);
+  /* Bords vert/or avec opacités légères pour un rendu de verre haut de gamme sans impact GPU */
+  border: 1px solid rgba(16, 185, 129, 0.15);
   background: rgba(16, 185, 129, 0.02);
-  backdrop-filter: blur(1px);
+  will-change: transform;
 }
 
-.front  { transform: rotateY(0deg) translateZ(50px); }
-.back   { transform: rotateY(180deg) translateZ(50px); }
-.right  { transform: rotateY(90deg) translateZ(50px); }
-.left   { transform: rotateY(-90deg) translateZ(50px); }
-.top    { transform: rotateX(90deg) translateZ(50px); }
-.bottom { transform: rotateX(-90deg) translateZ(50px); }
+/* Support des thèmes de couleurs */
+[data-theme="light"] .face {
+  border: 1px solid rgba(0, 179, 104, 0.22);
+  background: rgba(0, 179, 104, 0.03);
+}
 
-/* Ajustement dynamique de la taille pour les faces (basé sur size prop) */
-.cube-container[style*="width: 120px"] .front  { transform: rotateY(0deg) translateZ(60px); }
-.cube-container[style*="width: 120px"] .back   { transform: rotateY(180deg) translateZ(60px); }
-.cube-container[style*="width: 120px"] .right  { transform: rotateY(90deg) translateZ(60px); }
-.cube-container[style*="width: 120px"] .left   { transform: rotateY(-90deg) translateZ(60px); }
-.cube-container[style*="width: 120px"] .top    { transform: rotateX(90deg) translateZ(60px); }
-.cube-container[style*="width: 120px"] .bottom { transform: rotateX(-90deg) translateZ(60px); }
+/* Positionnement dynamique des faces 3D basé sur la variable CSS passée par React */
+.face-front  { transform: rotateY(0deg) translateZ(calc(var(--size) / 2)); }
+.face-back   { transform: rotateY(180deg) translateZ(calc(var(--size) / 2)); }
+.face-right  { transform: rotateY(90deg) translateZ(calc(var(--size) / 2)); }
+.face-left   { transform: rotateY(-90deg) translateZ(calc(var(--size) / 2)); }
+.face-top    { transform: rotateX(90deg) translateZ(calc(var(--size) / 2)); }
+.face-bottom { transform: rotateX(-90deg) translateZ(calc(var(--size) / 2)); }
 
-.cube-container[style*="width: 80px"] .front  { transform: rotateY(0deg) translateZ(40px); }
-.cube-container[style*="width: 80px"] .back   { transform: rotateY(180deg) translateZ(40px); }
-.cube-container[style*="width: 80px"] .right  { transform: rotateY(90deg) translateZ(40px); }
-.cube-container[style*="width: 80px"] .left   { transform: rotateY(-90deg) translateZ(40px); }
-.cube-container[style*="width: 80px"] .top    { transform: rotateX(90deg) translateZ(40px); }
-.cube-container[style*="width: 80px"] .bottom { transform: rotateX(-90deg) translateZ(40px); }
-
-.cube-container[style*="width: 150px"] .front  { transform: rotateY(0deg) translateZ(75px); }
-.cube-container[style*="width: 150px"] .back   { transform: rotateY(180deg) translateZ(75px); }
-.cube-container[style*="width: 150px"] .right  { transform: rotateY(90deg) translateZ(75px); }
-.cube-container[style*="width: 150px"] .left   { transform: rotateY(-90deg) translateZ(75px); }
-.cube-container[style*="width: 150px"] .top    { transform: rotateX(90deg) translateZ(75px); }
-.cube-container[style*="width: 150px"] .bottom { transform: rotateX(-90deg) translateZ(75px); }
-
-.cube-container[style*="width: 60px"] .front  { transform: rotateY(0deg) translateZ(30px); }
-.cube-container[style*="width: 60px"] .back   { transform: rotateY(180deg) translateZ(30px); }
-.cube-container[style*="width: 60px"] .right  { transform: rotateY(90deg) translateZ(30px); }
-.cube-container[style*="width: 60px"] .left   { transform: rotateY(-90deg) translateZ(30px); }
-.cube-container[style*="width: 60px"] .top    { transform: rotateX(90deg) translateZ(30px); }
-.cube-container[style*="width: 60px"] .bottom { transform: rotateX(-90deg) translateZ(30px); }
-
-/* Carrés entrelacés */
+/* Carrés entrelacés au centre */
 .entwined-squares {
   position: absolute;
   top: 50%;
   left: 50%;
   width: 600px;
   height: 600px;
-  margin-top: -300px;
-  margin-left: -300px;
-  opacity: 0.1;
+  opacity: 0.08;
   pointer-events: none;
+  will-change: transform;
 }
 
 .square {
@@ -106,13 +94,14 @@
 .s2 { width: 80%; height: 80%; transform: translate(-50%, -50%) rotate(-15deg); }
 .s3 { width: 60%; height: 60%; transform: translate(-50%, -50%) rotate(75deg); }
 
-/* Glow spots */
+/* Glow spots d'ambiance */
 .glow-spot {
   position: absolute;
   border-radius: 50%;
   filter: blur(80px);
   z-index: -1;
-  opacity: 0.3;
+  opacity: 0.25;
+  pointer-events: none;
 }
 
 .spot-1 {

@@ -88,7 +88,7 @@ function Home() {
   const titleLine2 = profile?.titleLine2 || "Kevy";
   const titleLine3 = profile?.titleLine3 || "Étudiant en I.A.C. - Option Contrôle";
   const subtitle = profile?.subtitle || "Spécialisé en contrôle qualité, analyse sensorielle et sécurité alimentaire.";
-  const imageUrl = profile?.imageUrl || "/src/assets/profile.jpg";
+  const imageUrl = profile?.imageUrl || "/photo-profil.jpg";
 
   return (
     <section className="home-page">
