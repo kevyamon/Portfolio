@@ -7,9 +7,10 @@
   z-index: -1;
   background-color: var(--color-background);
   overflow: hidden;
+  transition: background-color var(--transition-slow);
 }
 
-/* Grille de fond texturée */
+/* Grille de fond texturée (blueprint) */
 .bg-grid-overlay {
   position: absolute;
   top: 0;
@@ -18,104 +19,164 @@
   height: 100%;
   background-image: var(--bg-pattern);
   background-size: var(--bg-pattern-size);
-  opacity: 0.5;
+  opacity: 0.7;
   pointer-events: none;
+  transition: background-image var(--transition-slow);
 }
 
-/* Conteneur de scène 3D avec perspective */
-.cube-scene-container {
+/* Conteneur des lignes blueprint */
+.blueprint-lines-container {
   position: absolute;
   inset: 0;
-  perspective: 1200px;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-/* Cubes 3D */
-.cube-container {
-  position: absolute;
-  transform-style: preserve-3d;
-  will-change: transform;
-  pointer-events: none;
-}
-
-.cube-inner {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  transform-style: preserve-3d;
-}
-
-.face {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  /* Bords vert/or avec opacités légères pour un rendu de verre haut de gamme sans impact GPU */
-  border: 1px solid rgba(16, 185, 129, 0.15);
-  background: rgba(16, 185, 129, 0.02);
-  will-change: transform;
-}
-
-/* Support des thèmes de couleurs */
-[data-theme="light"] .face {
-  border: 1px solid rgba(0, 179, 104, 0.22);
-  background: rgba(0, 179, 104, 0.03);
-}
-
-/* Positionnement dynamique des faces 3D basé sur la variable CSS passée par React */
-.face-front  { transform: rotateY(0deg) translateZ(calc(var(--size) / 2)); }
-.face-back   { transform: rotateY(180deg) translateZ(calc(var(--size) / 2)); }
-.face-right  { transform: rotateY(90deg) translateZ(calc(var(--size) / 2)); }
-.face-left   { transform: rotateY(-90deg) translateZ(calc(var(--size) / 2)); }
-.face-top    { transform: rotateX(90deg) translateZ(calc(var(--size) / 2)); }
-.face-bottom { transform: rotateX(-90deg) translateZ(calc(var(--size) / 2)); }
-
-/* Carrés entrelacés au centre */
-.entwined-squares {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 600px;
-  height: 600px;
-  opacity: 0.08;
   pointer-events: none;
   will-change: transform;
 }
 
-.square {
+/* Lignes individuelles */
+.bp-line {
   position: absolute;
-  border: 2px solid var(--color-primary);
-  top: 50%;
-  left: 50%;
+  background-color: var(--color-border);
+  opacity: 0.35;
+  transition: background-color var(--transition-slow);
+}
+
+.bp-vertical {
+  width: 1px;
+  height: 200%;
+  top: -50%;
+}
+
+.bp-horizontal {
+  height: 1px;
+  width: 200%;
+  left: -50%;
+}
+
+/* Positionnement des lignes blueprint */
+.bp-v-1 { left: 15%; }
+.bp-v-2 { left: 45%; }
+.bp-v-3 { left: 80%; }
+
+.bp-h-1 { top: 18%; }
+.bp-h-2 { top: 55%; }
+.bp-h-3 { top: 85%; }
+
+/* Étiquettes techniques */
+.bp-label {
+  position: absolute;
+  font-family: monospace;
+  font-size: 0.7rem;
+  color: var(--color-textMuted);
+  opacity: 0.6;
+  letter-spacing: 1px;
+  padding: 4px 8px;
+  user-select: none;
+}
+
+.bp-vertical .bp-label {
+  transform: rotate(90deg);
+  transform-origin: left top;
+  left: 6px;
+  top: 100px;
+}
+
+.bp-horizontal .bp-label {
+  top: 6px;
+  left: 50px;
+}
+
+/* Cibles / Réticules techniques */
+.bp-crosshair {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  opacity: 0.3;
   transform: translate(-50%, -50%);
+  transition: border-color var(--transition-slow);
 }
 
-.s1 { width: 100%; height: 100%; transform: translate(-50%, -50%) rotate(45deg); }
-.s2 { width: 80%; height: 80%; transform: translate(-50%, -50%) rotate(-15deg); }
-.s3 { width: 60%; height: 60%; transform: translate(-50%, -50%) rotate(75deg); }
+.bp-crosshair::before,
+.bp-crosshair::after {
+  content: '';
+  position: absolute;
+  background-color: var(--color-border);
+}
 
-/* Glow spots d'ambiance */
+.bp-crosshair::before {
+  top: 50%;
+  left: -5px;
+  width: 30px;
+  height: 1px;
+}
+
+.bp-crosshair::after {
+  left: 50%;
+  top: -5px;
+  height: 30px;
+  width: 1px;
+}
+
+.bp-ch-1 { top: 35%; left: 15%; }
+.bp-ch-2 { top: 75%; left: 80%; }
+
+/* Points de coordonnées blueprint */
+.bp-dot {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background-color: var(--color-primary);
+  border-radius: 50%;
+  opacity: 0.5;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 8px var(--color-primary);
+}
+
+.bp-dot-1 { top: 18%; left: 45%; }
+.bp-dot-2 { top: 55%; left: 15%; }
+.bp-dot-3 { top: 85%; left: 80%; }
+
+/* Spots de lueur d'ambiance bleue */
 .glow-spot {
   position: absolute;
   border-radius: 50%;
-  filter: blur(80px);
+  filter: blur(120px);
   z-index: -1;
-  opacity: 0.25;
+  opacity: 0.12;
   pointer-events: none;
+  transition: background var(--transition-slow);
 }
 
 .spot-1 {
   top: -10%;
   right: -10%;
-  width: 500px;
-  height: 500px;
+  width: 600px;
+  height: 600px;
   background: radial-gradient(circle, var(--color-primary), transparent 70%);
 }
 
 .spot-2 {
   bottom: -10%;
   left: -10%;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(16, 185, 129, 0.4), transparent 70%);
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(var(--color-primaryRgb), 0.5), transparent 70%);
+}
+
+/* En mode clair, on adoucit un peu l'intensité des lignes */
+[data-theme="light"] .bp-line {
+  opacity: 0.2;
+}
+
+[data-theme="light"] .bp-label {
+  opacity: 0.4;
+}
+
+[data-theme="light"] .bp-crosshair {
+  opacity: 0.15;
+}
+
+[data-theme="light"] .glow-spot {
+  opacity: 0.05;
 }

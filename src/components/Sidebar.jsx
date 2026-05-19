@@ -67,16 +67,16 @@ function Sidebar() {
         >
           <ul>
             <motion.li variants={itemVariant}>
-              <Link to="/" onClick={closeSidebar}>Accueil</Link>
+              <Link to="/#hero" onClick={closeSidebar}>Accueil</Link>
             </motion.li>
             <motion.li variants={itemVariant}>
-              <Link to="/parcours" onClick={closeSidebar}>Parcours</Link>
+              <Link to="/#parcours" onClick={closeSidebar}>Parcours</Link>
             </motion.li>
             <motion.li variants={itemVariant}>
-              <Link to="/travaux" onClick={closeSidebar}>Accomplissements</Link>
+              <Link to="/#travaux" onClick={closeSidebar}>Accomplissements</Link>
             </motion.li>
             <motion.li variants={itemVariant}>
-              <Link to="/contact" onClick={closeSidebar}>Contact</Link>
+              <Link to="/#contact" onClick={closeSidebar}>Contact</Link>
             </motion.li>
           </ul>
         </motion.nav>

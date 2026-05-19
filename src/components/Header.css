@@ -6,37 +6,82 @@
   width: 100%;
   display: flex;
   justify-content: flex-end;
-  padding: 20px;
+  padding: 25px 5%;
   z-index: 1000;
-  /* Optimisation du rendu pour éviter les lags au scroll */
   will-change: transform;
+  pointer-events: none; /* Permet de cliquer à travers l'en-tête vide */
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  pointer-events: auto; /* Réactive les clics sur les boutons */
+}
+
+/* Bouton de changement de thème */
+.theme-toggle-btn {
+  background: none;
+  border: none;
+  color: var(--color-text);
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background-color: rgba(var(--color-primaryRgb), 0.05);
+  transition: all var(--transition-normal);
+}
+
+.theme-toggle-btn:hover {
+  background-color: rgba(var(--color-primaryRgb), 0.15);
+  border-color: var(--color-primary);
+  transform: rotate(15deg) scale(1.08);
+}
+
+/* Hamburger */
 .hamburger {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: 30px;
-  height: 24px;
+  height: 20px;
   cursor: pointer;
   z-index: 1000;
-  /* Empêche la sélection de l'icône sur double clic */
   user-select: none;
   -webkit-user-select: none;
 }
 
 .bar {
   width: 100%;
-  height: 4px;
-  background-color: #ffffff;
+  height: 3px;
+  background-color: var(--color-text); /* Couleur s'adaptant au thème */
   border-radius: 2px;
-  /* Optimisation de la performance de l'animation */
-  /* On cible uniquement opacity et transform, jamais la largeur ou la hauteur */
-  transition: opacity 0.3s ease, transform 0.3s ease; 
+  transition: opacity var(--transition-normal), transform var(--transition-normal), background-color var(--transition-slow); 
   transform-origin: center;
   will-change: opacity, transform;
 }
 
-.hamburger.open .bar {
+/* Animation hamburger ouvert */
+.hamburger.open .bar:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger.open .bar:nth-child(2) {
   opacity: 0;
+}
+
+.hamburger.open .bar:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 20px;
+  }
+  .header-actions {
+    gap: 18px;
+  }
 }
