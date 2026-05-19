@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import './LoginModal.css';
 import apiClient from '../api/axiosConfig'; 
 import { toast } from 'react-hot-toast'; 
+import { useNavigate } from 'react-router-dom';
 
 // --- Icône Oeil (Afficher) ---
 const EyeIcon = () => (
@@ -22,6 +23,7 @@ const EyeOffIcon = () => (
 );
 
 function LoginModal({ isOpen, onClose }) {
+  const navigate = useNavigate();
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -35,12 +37,7 @@ function LoginModal({ isOpen, onClose }) {
       
       toast.success('Connexion réussie ! Redirection...');
       
-      // --- CORRECTION DU BUG DE REDIRECTION ---
-      // Au lieu de recharger la page actuelle (reload)...
-      // window.location.reload(); 
-      
-      // ...Nous redirigeons l'utilisateur directement vers le Dashboard.
-      window.location.href = '/admin'; 
+      navigate('/admin');
       
     } catch (error) {
       toast.error('Mot de passe invalide.');
